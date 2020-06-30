@@ -1,0 +1,20 @@
+{
+    "permissions": {
+        "auth": {
+            "awsteamsafefcd90582fcd90582": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        },
+        "api": {
+            "awsteamsafe": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

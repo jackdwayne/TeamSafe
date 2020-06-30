@@ -1,0 +1,21 @@
+{
+    "appName": "awsteamsafe",
+    "roleName": "pinpointLambdaRole5492cb79",
+    "cloudformationPolicyName": "cloudformationPolicy5492cb79",
+    "cloudWatchPolicyName": "cloudWatchPolicy5492cb79",
+    "pinpointPolicyName": "pinpointPolicy5492cb79",
+    "authPolicyName": "pinpoint_amplify_5492cb79",
+    "unauthPolicyName": "pinpoint_amplify_5492cb79",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

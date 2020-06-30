@@ -1,0 +1,98 @@
+type Employee
+  @model
+  @auth(
+    rules: [{ allow: owner},
+      { allow: private, operations: [read, update] },
+  ]) 
+{
+    id: ID!
+    email: String!
+    phone: String!
+    name: String!
+    memberOfTeam: [TeamMember] @connection(keyName: "membersByEmployee", fields:["id"] )
+}
+
+type TeamMember
+  @model
+  @auth(
+    rules: [{ allow: owner},
+      { allow: private, operations: [read] },
+  ]) 
+  @key(name: "membersByTeam", fields: ["teamID", "id"], queryField:"membersByTeam")
+  @key(name: "membersByEmployee", fields: ["employeeID", "teamID"], queryField:"membersByEmployee")
+
+{
+    id: ID!
+    employeeID: ID!
+    employee: Employee @connection(fields: ["employeeID"])
+    teamID: ID! 
+    team: Team @connection(fields: ["teamID"])
+
+}
+
+type Team
+  @model
+    @auth(
+    rules: [{ allow: owner},
+      { allow: private, operations: [read] },
+  ]) 
+  @key(name: "tByManager", fields: ["managerEmail", "id"], queryField: "teamByManager")
+{
+    id: ID!
+    managerName: String!
+    managerEmail: String!
+    managerPhone: String!
+    teamName: String! 
+    teamMembers: [TeamMember] @connection(keyName: "membersByTeam", fields: ["id"])
+    events: [Event] @connection(keyName: "eventByTeam" , fields:["id"])
+
+}
+
+type Event
+  @model
+    @auth(
+    rules: [{ allow: owner},
+      { allow: private, operations: [read] },
+  ]) 
+  @key(name: "eventByTeam", fields: ["teamID", "id"], queryField:"eventsByTeam")
+  @key(name: "eByManager", fields: ["managerEmail", "id"], queryField: "eventByManager")
+{
+  id: ID!
+  managerName: String!
+  managerEmail: String!
+  managerPhone: String!
+  alertManagerSetting: String!
+  eventMessage: String!
+  autoReplyPosMessage: String!
+  autoReplyNegMessage: String!
+  positiveResponse: String!
+  negativeResponse: String!
+  eventStart: String!
+  eventEnd: String
+  noResponseResendTime: String!
+  eventStatus: String!
+  eventName: String!
+  teamID: ID!
+  team: Team @connection(fields: ["teamID"])
+  longCode: String
+  responses: [Response] @connection(keyName: "responsesByEvent", fields:["id"])
+
+}
+
+
+type Response 
+  @model
+    @auth(
+    rules: [{ allow: owner},
+      { allow: private, operations: [read] },
+  ]) 
+  @key(name: "responsesByEvent", fields: ["eventID", "id"], queryField:"responsesByEvent")
+{
+  id: ID!
+  message: String
+  eventID: ID! 
+  employee: Employee!
+  responseTime: String!
+  responseType: String!
+
+}

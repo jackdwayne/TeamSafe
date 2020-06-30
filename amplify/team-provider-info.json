@@ -1,0 +1,27 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-awsteamsafe-dev-95253-authRole",
+            "UnauthRoleArn": "arn:aws:iam::352458471133:role/amplify-awsteamsafe-dev-95253-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::352458471133:role/amplify-awsteamsafe-dev-95253-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-awsteamsafe-dev-95253-deployment",
+            "UnauthRoleName": "amplify-awsteamsafe-dev-95253-unauthRole",
+            "StackName": "amplify-awsteamsafe-dev-95253",
+            "StackId": "arn:aws:cloudformation:us-east-1:352458471133:stack/amplify-awsteamsafe-dev-95253/fb807760-ba28-11ea-bf3b-12a640cb526e",
+            "AmplifyAppId": "d2zhh8ijz4vzo6"
+        },
+        "categories": {
+            "auth": {
+                "awsteamsafefcd90582fcd90582": {}
+            },
+            "notifications": {
+                "Pinpoint": {
+                    "Name": "awsteamsafe-dev",
+                    "Id": "46fe3d7696f4400f8a96a3292dc3bbc3",
+                    "Region": "us-east-1"
+                }
+            }
+        }
+    }
+}
