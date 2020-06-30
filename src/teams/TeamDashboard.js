@@ -14,8 +14,7 @@ import {
   Divider,
   Dropdown,
   Button,
-  List,
-  Card,
+  List
 } from "semantic-ui-react";
 
 function TeamDashboard ({ team }) {
@@ -54,7 +53,7 @@ function TeamDashboard ({ team }) {
   const handleAddEmployee = async (event, data) => {
     setEmpId(data.value);
     const input = { employeeID: data.value, teamID: thisTeam.id };
-    API.graphql(graphqlOperation(createTeamMember, { input }));
+    await API.graphql(graphqlOperation(createTeamMember, { input }));
     const tMems = await API.graphql(
       graphqlOperation(membersByTeam, { teamID: team })
     );
@@ -64,7 +63,7 @@ function TeamDashboard ({ team }) {
 
   const handleTeamMemberDelete = async (id) => {
     const input = { id: id };
-    API.graphql(graphqlOperation(deleteTeamMember, { input }));
+    await API.graphql(graphqlOperation(deleteTeamMember, { input }));
     const tMems = await API.graphql(
       graphqlOperation(membersByTeam, { teamID: team })
     );
@@ -168,6 +167,7 @@ function TeamDashboard ({ team }) {
                         <div>{evt.managerPhone}</div>
                         <div>{evt.managerEmail}</div>
                       </List.Content>
+                      <Divider></Divider>
                   </List.Item>
                 </div>
               );

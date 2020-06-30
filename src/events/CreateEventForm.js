@@ -132,7 +132,7 @@ class CreateEventForm extends Component {
       teamID,
       longCode,
     };
-    API.graphql(graphqlOperation(createEvent, { input }));
+    await API.graphql(graphqlOperation(createEvent, { input }));
     sendMessage();
     this.props.eventHandler();
   };
