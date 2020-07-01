@@ -31,7 +31,8 @@ class CreateTeamForm extends Component {
       managerPhone,
       teamName,
     };
-    await API.graphql(graphqlOperation(createTeam, { input })); 
+    await API.graphql(graphqlOperation(createTeam, { input }));
+    
     this.props.teamHandler();
   };
 

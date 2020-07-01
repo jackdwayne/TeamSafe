@@ -89,7 +89,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-awsteamsafe-dev-95253-deployment",
-					"S3Key": "amplify-builds/phoneFormFunction-514e4f64445144734558-build.zip"
+					"S3Key": "amplify-builds/phoneFormFunction-424d593951584f4c7937-build.zip"
 				}
 			}
 		},
@@ -99,12 +99,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsteamsafeLambdaRole77bedc23",
+						"awsteamsafeLambdaRole95cfa451",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsteamsafeLambdaRole77bedc23",
+									"awsteamsafeLambdaRole95cfa451",
 									"-",
 									{
 										"Ref": "env"

@@ -76,6 +76,7 @@ function App (){
       {dashboard === "team" && (
         <TeamDashboard team={team}/>
       )}
+      
     </div>
     ) : (
     <AmplifyAuthenticator>

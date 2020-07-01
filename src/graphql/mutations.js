@@ -1,6 +1,21 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const phoneForm = /* GraphQL */ `
+  mutation PhoneForm(
+    $firstName: String!
+    $lastName: String!
+    $destinationNumber: String!
+    $source: String!
+  ) {
+    phoneForm(
+      firstName: $firstName
+      lastName: $lastName
+      destinationNumber: $destinationNumber
+      source: $source
+    )
+  }
+`;
 export const createEmployee = /* GraphQL */ `
   mutation CreateEmployee(
     $input: CreateEmployeeInput!
@@ -10,7 +25,8 @@ export const createEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -35,7 +51,8 @@ export const updateEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -60,7 +77,8 @@ export const deleteEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -88,7 +106,8 @@ export const createTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -128,7 +147,8 @@ export const updateTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -168,7 +188,8 @@ export const deleteTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -524,7 +545,8 @@ export const createResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -551,7 +573,8 @@ export const updateResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -578,7 +601,8 @@ export const deleteResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }

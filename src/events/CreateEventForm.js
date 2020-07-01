@@ -5,7 +5,7 @@ import { createEvent } from "../graphql/mutations";
 import { teamByManager } from "../graphql/queries";
 import { Auth } from "aws-amplify";
 import Calendar from "react-calendar";
-import * as AWS from 'aws-sdk'
+
 
 function sendMessage() {
   var AWS = require('aws-sdk');

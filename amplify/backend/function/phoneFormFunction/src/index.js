@@ -24,17 +24,17 @@ var projectId = '46fe3d7696f4400f8a96a3292dc3bbc3';
 var originationNumber = '+18654242261';
 
 // This message is spread across multiple lines for improved readability.
-var message = "You can now receive updates and notifications from your manager via AWS Team Safe!";
+var message = "You can now receive updates and notifications from your manager via AWS Team Safe! Reply 'YES' to confirm or 'STOP' to cancel";
             
 var messageType = "TRANSACTIONAL";
 
-exports.handler = (event, context, callback) => {
+exports.handler = (event) => {
   console.log('Received event:', event);
   validateNumber(event);
 };
 
 function validateNumber (event) {
-  var destinationNumber = event.destinationNumber;
+  var destinationNumber = event.arguments.destinationNumber;
   if (destinationNumber.length == 10) {
     destinationNumber = "+1" + destinationNumber;
   }
@@ -52,7 +52,7 @@ function validateNumber (event) {
       console.log(data);
       //return data;
       if (data['NumberValidateResponse']['PhoneTypeCode'] == 0) {
-        createEndpoint(data, event.firstName, event.lastName, event.source);
+        createEndpoint(data, event.arguments.firstName, event.arguments.lastName, event.arguments.source);
       } else {
         console.log("Received a phone number that isn't capable of receiving "
                    +"SMS messages. No endpoint created.");
@@ -140,7 +140,7 @@ function sendConfirmation(destinationNumber) {
       console.log(err.message);
     // Otherwise, show the unique ID for the message.
     } else {
-      console.log("Message sent! " 
+      return console.log("Message sent! " 
           + data['MessageResponse']['Result'][destinationNumber]['StatusMessage']);
     }
   });

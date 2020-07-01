@@ -7,7 +7,8 @@ export const getEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -34,7 +35,8 @@ export const listEmployees = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -54,7 +56,8 @@ export const getTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -96,7 +99,8 @@ export const listTeamMembers = /* GraphQL */ `
           id
           email
           phone
-          name
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -296,7 +300,8 @@ export const getResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -325,7 +330,8 @@ export const listResponses = /* GraphQL */ `
           id
           email
           phone
-          name
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -362,7 +368,8 @@ export const membersByTeam = /* GraphQL */ `
           id
           email
           phone
-          name
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -407,7 +414,8 @@ export const membersByEmployee = /* GraphQL */ `
           id
           email
           phone
-          name
+          firstName
+          lastName
           createdAt
           updatedAt
         }
@@ -597,7 +605,8 @@ export const responsesByEvent = /* GraphQL */ `
           id
           email
           phone
-          name
+          firstName
+          lastName
           createdAt
           updatedAt
         }

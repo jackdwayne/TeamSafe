@@ -37,20 +37,6 @@
 					}
 				}
 			}
-		},
-		"awsTeamSafeRest": {
-			"service": "API Gateway",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [
-				{
-					"category": "function",
-					"resourceName": "phoneFormFunction",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			]
 		}
 	},
 	"analytics": {

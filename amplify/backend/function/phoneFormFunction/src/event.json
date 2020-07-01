@@ -1,6 +1,5 @@
 {
-  "destinationNumber": "3605181458",
-  "firstName": "Jack ",
-  "lastName": "Jones",
-  "source": "Registration form test"
+  "key1": "value1",
+  "key2": "value2",
+  "key3": "value3"
 }

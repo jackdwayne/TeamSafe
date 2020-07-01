@@ -8,7 +8,8 @@ type Employee
     id: ID!
     email: String!
     phone: String!
-    name: String!
+    firstName: String!
+    lastName: String!
     memberOfTeam: [TeamMember] @connection(keyName: "membersByEmployee", fields:["id"] )
 }
 
@@ -95,4 +96,8 @@ type Response
   responseTime: String!
   responseType: String!
 
+}
+
+type Mutation {
+  phoneForm(firstName: String!, lastName: String!, destinationNumber: String!, source: String!): String @function(name: "phoneFormFunction-${env}")
 }

@@ -7,7 +7,8 @@ export const onCreateEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -29,7 +30,8 @@ export const onUpdateEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -51,7 +53,8 @@ export const onDeleteEmployee = /* GraphQL */ `
       id
       email
       phone
-      name
+      firstName
+      lastName
       memberOfTeam {
         items {
           id
@@ -76,7 +79,8 @@ export const onCreateTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -113,7 +117,8 @@ export const onUpdateTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -150,7 +155,8 @@ export const onDeleteTeamMember = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -485,7 +491,8 @@ export const onCreateResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -509,7 +516,8 @@ export const onUpdateResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
@@ -533,7 +541,8 @@ export const onDeleteResponse = /* GraphQL */ `
         id
         email
         phone
-        name
+        firstName
+        lastName
         memberOfTeam {
           nextToken
         }
