@@ -2,45 +2,22 @@ import React, { Component } from "react";
 import { Button, Form, Dropdown, Checkbox } from "semantic-ui-react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEvent } from "../graphql/mutations";
-import { teamByManager } from "../graphql/queries";
+import { teamByManager, messageEvent, membersByTeam } from "../graphql/queries";
 import { Auth } from "aws-amplify";
 import Calendar from "react-calendar";
-
-
-function sendMessage() {
-  var AWS = require('aws-sdk');
-  // Set region
-  AWS.config.update({region: 'us-east-1'});
-
-  // Create publish parameters
-  var params = {
-    Message: 'TEXT_MESSAGE', /* required */
-    PhoneNumber: '3605181458',
-  };
-
-  // Create promise and SNS service object
-  var publishTextPromise = new AWS.SNS({apiVersion: '2010-03-31'}).publish(params).promise();
-
-  // Handle promise's fulfilled/rejected states
-  publishTextPromise.then(
-    function(data) {
-      console.log("MessageID is " + data.MessageId);
-    }).catch(
-      function(err) {
-      console.error(err, err.stack);
-    });
-}
+import { render } from "@testing-library/react";
 
 class CreateEventForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      page: 1,
+      itemsPerPage: 5,
       hideForm: true,
+      user: "",
       teams: [],
-      eventEnd: new Date(),
-      params: {},
+      destinationNumbers: [],
     };
-
     this.handleAddEvent = this.handleAddEvent.bind(this);
   }
 
@@ -51,17 +28,9 @@ class CreateEventForm extends Component {
     );
     this.setState({ teams: result.data.teamByManager.items });
   }
+
   handleChangeEventName = (event) =>
     this.setState({ eventName: event.target.value });
-
-  handleChangeManagerName = (event) =>
-    this.setState({ managerName: event.target.value });
-
-  handleChangeManagerEmail = (event) =>
-    this.setState({ managerEmail: event.target.value });
-
-  handleChangeManagerPhone = (event) =>
-    this.setState({ managerPhone: event.target.value });
 
   handleChangeAlertManagerSetting = (event, { value }) =>
     this.setState({ alertManagerSetting: value });
@@ -81,26 +50,36 @@ class CreateEventForm extends Component {
   handleChangeNegativeResponse = (event) =>
     this.setState({ negativeResponse: event.target.value });
 
-  handleChangeEventStart = (event) =>
-    this.setState({ eventStart: event.target.value });
-
-  handleChangeEventEnd = (eventEnd) => this.setState({ eventEnd });
+  handleChangeEventEnd = (eventEnd) => this.setState({ eventEnd: eventEnd });
 
   handleChangeNoResponseResendTime = (event, { value }) =>
     this.setState({ noResponseResendTime: value });
 
-  handleChangeTeamID = (event, { value }) => this.setState({ teamID: value });
+  handleChangeTeamID = async (event, data) => {
+    this.setState({ teamID: data.value });
+    console.log(data.value);
+    const tMems = await API.graphql(
+      graphqlOperation(membersByTeam, { teamID: data.value })
+    );
+    await this.setState({ teamMembers: tMems.data.membersByTeam.items });
+    let i = 0;
+
+    while (i < tMems.data.membersByTeam.items.length) {
+      let phoneNumbers = [];
+      phoneNumbers.push(tMems.data.membersByTeam.items[i].employee.phone);
+      this.setState({ destinationNumbers: phoneNumbers });
+
+      i++;
+    }
+
+    console.log(this.state.destinationNumbers);
+  };
 
   handleChangeLongCode = (event) =>
     this.setState({ longCode: event.target.value });
 
-  handleTeamClick = (e, { value }) => this.setState({ value });
-
   handleAddEvent = async (event) => {
     const {
-      managerEmail,
-      managerName,
-      managerPhone,
       alertManagerSetting,
       eventMessage,
       autoReplyPosMessage,
@@ -109,10 +88,9 @@ class CreateEventForm extends Component {
       negativeResponse,
       eventEnd,
       noResponseResendTime,
-      eventStatus,
       eventName,
       teamID,
-      longCode,
+      longCode
     } = this.state;
     const input = {
       managerName: Auth.user.attributes.name,
@@ -133,9 +111,16 @@ class CreateEventForm extends Component {
       longCode,
     };
     await API.graphql(graphqlOperation(createEvent, { input }));
-    sendMessage();
     this.props.eventHandler();
+    await API.graphql(
+      graphqlOperation(messageEvent, {
+        destinationNumbers: this.state.destinationNumbers,
+        message: eventMessage,
+      })
+    );
   };
+
+ 
   render() {
     const { teams } = this.state;
     const { teamID } = this.state;
@@ -191,7 +176,6 @@ class CreateEventForm extends Component {
             value={teamID}
           />
         </Form.Field>
-        <input value={teamID} />
         <Form.Field>
           <label>Alert Manager?</label>
         </Form.Field>

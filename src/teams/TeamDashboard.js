@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import {
   getTeam,
   listEmployees,
@@ -73,11 +73,11 @@ function TeamDashboard ({ team }) {
   useEffect(() => {
     teamQuery();
     empQuery();
-  }, []);
+  });
 
   const empOptions = employees.map((item) => ({
     key: item.id,
-    text: "Name: " + item.name + ", Email: " + item.email,
+    text: "Name: " + item.firstName + " " + item.lastName + ", Email: " + item.email,
     value: item.id,
   }));
 
@@ -123,7 +123,7 @@ function TeamDashboard ({ team }) {
                     return (
                       <div key={teamMember.id}>
                         <List.Item>
-                          <List.Header>{teamMember.employee.name}</List.Header>
+                          <List.Header>{teamMember.employee.firstName + " " +teamMember.employee.lastName}</List.Header>
 
                           <p>
                             {teamMember.id} <br />
@@ -159,7 +159,7 @@ function TeamDashboard ({ team }) {
                   <List.Item>
                       <List.Content>
 
-                        <List.Header><a>{evt.eventName}</a></List.Header>
+                        <List.Header>{evt.eventName}</List.Header>
                         <b>Team Name</b>
                         <div>{evt.team.teamName}</div>
                         <b>Manager</b>

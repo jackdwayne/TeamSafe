@@ -33,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"phoneFormFunction",
+						"sendSmsEventFunction",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"phoneFormFunction",
+									"sendSmsEventFunction",
 									"-",
 									{
 										"Ref": "env"
@@ -68,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-awsteamsafe-dev-95253-deployment",
-					"S3Key": "amplify-builds/phoneFormFunction-646967644f6d5132667a-build.zip"
+					"S3Key": "amplify-builds/sendSmsEventFunction-4142776f68676f664243-build.zip"
 				}
 			}
 		},
@@ -78,12 +78,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsteamsafeLambdaRole8cbe68f2",
+						"awsteamsafeLambdaRoleff3c297c",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsteamsafeLambdaRole8cbe68f2",
+									"awsteamsafeLambdaRoleff3c297c",
 									"-",
 									{
 										"Ref": "env"

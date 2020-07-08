@@ -98,6 +98,9 @@ type Response
 
 }
 
-type Mutation {
+type Query 
+{
   phoneForm(firstName: String!, lastName: String!, destinationNumber: String!, source: String!): String @function(name: "phoneFormFunction-${env}")
+  messageEvent(destinationNumbers: [String]!, message: String!): String @function(name: "sendSmsEventFunction-${env}")
 }
+

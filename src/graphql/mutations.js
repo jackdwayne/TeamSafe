@@ -1,21 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const phoneForm = /* GraphQL */ `
-  mutation PhoneForm(
-    $firstName: String!
-    $lastName: String!
-    $destinationNumber: String!
-    $source: String!
-  ) {
-    phoneForm(
-      firstName: $firstName
-      lastName: $lastName
-      destinationNumber: $destinationNumber
-      source: $source
-    )
-  }
-`;
 export const createEmployee = /* GraphQL */ `
   mutation CreateEmployee(
     $input: CreateEmployeeInput!

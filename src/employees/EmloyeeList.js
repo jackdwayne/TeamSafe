@@ -82,7 +82,7 @@ class TeamList extends Component {
               <List.Item onClick={this.handleEmpNameClicked}>
                 <Card>
                   <List.Content>
-                    <List.Header>{item.firstName}</List.Header>
+                    <List.Header>{item.firstName + item.lastName}</List.Header>
                     <div>{item.phone}</div>
                     <div>{item.email}</div>
                   </List.Content>

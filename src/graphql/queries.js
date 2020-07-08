@@ -1,6 +1,26 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const phoneForm = /* GraphQL */ `
+  query PhoneForm(
+    $firstName: String!
+    $lastName: String!
+    $destinationNumber: String!
+    $source: String!
+  ) {
+    phoneForm(
+      firstName: $firstName
+      lastName: $lastName
+      destinationNumber: $destinationNumber
+      source: $source
+    )
+  }
+`;
+export const messageEvent = /* GraphQL */ `
+  query MessageEvent($destinationNumbers: [String]!, $message: String!) {
+    messageEvent(destinationNumbers: $destinationNumbers, message: $message)
+  }
+`;
 export const getEmployee = /* GraphQL */ `
   query GetEmployee($id: ID!) {
     getEmployee(id: $id) {

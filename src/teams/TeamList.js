@@ -89,7 +89,7 @@ class TeamList extends Component {
               <List.Item onClick={() => this.handleTeamNameClicked(item.id)}>
                 <Card>
                   <List.Content>
-                    <List.Header><a>{item.teamName}</a></List.Header>
+                    <List.Header>{item.teamName}</List.Header>
                     <b>Manager</b>
                     <div>{item.managerName}</div>
                     <div>{item.managerPhone}</div>

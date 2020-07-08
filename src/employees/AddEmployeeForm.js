@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import {API, graphqlOperation} from 'aws-amplify'
-import { createEmployee, phoneForm } from '../graphql/mutations'
+import { createEmployee } from '../graphql/mutations'
+import {phoneForm} from '../graphql/queries'
 
 
 
@@ -27,7 +28,9 @@ class CreateTeamForm extends Component{
         const {employeeFirstName, employeeLastName, employeeEmail, employeePhone} = this.state;
         const input = {firstName : employeeFirstName, lastName : employeeLastName, email: employeeEmail, phone: employeePhone}
         await API.graphql(graphqlOperation(createEmployee, {input}))
-        await API.graphql(graphqlOperation(phoneForm, {firstName: employeeFirstName, lastName: employeeLastName, destinationNumber: employeePhone, source: "Registration" }))
+        await API.graphql(graphqlOperation(phoneForm, {firstName: employeeFirstName, lastName: employeeLastName, destinationNumber: employeePhone, source: "registration"}))
+            .then(result => console.log(result.data.phoneForm))
+            .catch(error => console.log(error))
         this.props.empHandler();
 
       }

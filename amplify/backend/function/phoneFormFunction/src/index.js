@@ -1,34 +1,24 @@
-/* Amplify Params - DO NOT EDIT
-	API_AWSTEAMSAFE_GRAPHQLAPIENDPOINTOUTPUT
-	API_AWSTEAMSAFE_GRAPHQLAPIIDOUTPUT
-	AUTH_AWSTEAMSAFEFCD90582FCD90582_USERPOOLID
-	ENV
-	REGION
-Amplify Params - DO NOT EDIT */
+
 
 var AWS = require('aws-sdk');
-var credentials = new AWS.SharedIniFileCredentials({profile: 'Jack Amplify'});
-AWS.config.credentials = credentials;
-
-// Specify the region.
-
-
-var pinpoint = new AWS.Pinpoint({region: 'us-east-1'}); 
+var pinpoint = new AWS.Pinpoint({region: process.env.region}); 
 
 // Make sure the SMS channel is enabled for the projectId that you specify.
 // See: https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-setup.html
-var projectId = '46fe3d7696f4400f8a96a3292dc3bbc3';
+var projectId = process.env.projectId;
 
 // You need a dedicated long code in order to use two-way SMS. 
 // See: https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-voice-manage.html#channels-voice-manage-request-phone-numbers
-var originationNumber = '+18654242261';
+var originationNumber = process.env.originationNumber;
+
 
 // This message is spread across multiple lines for improved readability.
-var message = "You can now receive updates and notifications from your manager via AWS Team Safe! Reply 'YES' to confirm or 'STOP' to cancel";
+var message = "Welcome to AWS Team Safe your manager has enrolled you to recieve "
+  + "safety notifications from them! Reply 'YES' to confirm." ;
             
 var messageType = "TRANSACTIONAL";
 
-exports.handler = (event) => {
+exports.handler = (event, context, callback) => {
   console.log('Received event:', event);
   validateNumber(event);
 };
@@ -140,7 +130,7 @@ function sendConfirmation(destinationNumber) {
       console.log(err.message);
     // Otherwise, show the unique ID for the message.
     } else {
-      return console.log("Message sent! " 
+      console.log("Message sent! " 
           + data['MessageResponse']['Result'][destinationNumber]['StatusMessage']);
     }
   });

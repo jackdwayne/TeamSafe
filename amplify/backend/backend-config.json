@@ -39,12 +39,7 @@
 			}
 		}
 	},
-	"analytics": {
-		"awsteamsafe": {
-			"service": "Pinpoint",
-			"providerPlugin": "awscloudformation"
-		}
-	},
+	"analytics": {},
 	"notifications": {
 		"awsteamsafe": {
 			"service": "Pinpoint",
@@ -57,24 +52,12 @@
 		"phoneFormFunction": {
 			"build": true,
 			"providerPlugin": "awscloudformation",
-			"service": "Lambda",
-			"dependsOn": [
-				{
-					"category": "auth",
-					"resourceName": "awsteamsafefcd90582fcd90582",
-					"attributes": [
-						"UserPoolId"
-					]
-				},
-				{
-					"category": "api",
-					"resourceName": "awsteamsafe",
-					"attributes": [
-						"GraphQLAPIIdOutput",
-						"GraphQLAPIEndpointOutput"
-					]
-				}
-			]
+			"service": "Lambda"
+		},
+		"sendSmsEventFunction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
 		}
 	}
 }

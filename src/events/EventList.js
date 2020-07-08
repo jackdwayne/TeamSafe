@@ -4,6 +4,7 @@ import { Pagination } from "semantic-ui-react";
 import CreateEventForm from "./CreateEventForm";
 import { eventByManager } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
+import { deleteEvent } from "../graphql/mutations";
 import { Auth } from "aws-amplify";
 
 class EventList extends Component {
@@ -33,6 +34,16 @@ class EventList extends Component {
     this.setState({ hideForm: !state });
   }
 
+  async handleDelete(id) {
+    const user = Auth.user.attributes.email;
+    const input = { id: id };
+    await API.graphql(graphqlOperation(deleteEvent, { input }));
+    const result = await API.graphql(
+      graphqlOperation(eventByManager, { managerEmail: user })
+    );
+    this.setState({ events: result.data.eventByManager.items });
+  }
+
   async createEventHandler() {
     const user = Auth.user.attributes.email;
     const result = await API.graphql(
@@ -57,7 +68,9 @@ class EventList extends Component {
     return (
       <div>
         <div>
-          <Button onClick={() => this.handleEventFormClick(this.state.hideForm)}>
+          <Button
+            onClick={() => this.handleEventFormClick(this.state.hideForm)}
+          >
             Create Event
           </Button>
           {this.state.hideForm === false && (
@@ -91,6 +104,9 @@ class EventList extends Component {
                     <div>{item.managerPhone}</div>
                     <div>{item.managerEmail}</div>
                   </List.Content>
+                  <Button onClick={() => this.handleDelete(item.id)}>
+                    Delete Event
+                  </Button>
                 </Card>
               </List.Item>
             </div>
