@@ -68,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-awsteamsafe-dev-95253-deployment",
-					"S3Key": "amplify-builds/sendSmsEventFunction-4142776f68676f664243-build.zip"
+					"S3Key": "amplify-builds/sendSmsEventFunction-467731624d7747754535-build.zip"
 				}
 			}
 		},

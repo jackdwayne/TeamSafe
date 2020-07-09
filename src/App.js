@@ -12,12 +12,14 @@ import EmployeeList from "./employees/EmloyeeList";
 import EventList from "./events/EventList";
 import { Auth } from "aws-amplify";
 import TeamDashboard from "./teams/TeamDashboard";
+import EventDashboard from "./events/EventDashboard";
 
 function App (){
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
   const [dashboard, setDashboard] = React.useState();
   const [team, setTeam] = React.useState();
+  const [event, setEvent] = React.useState();
 
   React.useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
@@ -30,7 +32,11 @@ function App (){
   const handleTeamClick = event => {
     setTeam(event);
     setDashboard('team');
-    console.log(event);
+  }
+  
+  const handleEventClick = event => {
+    setEvent(event);
+    setDashboard('event');
   }
 
 
@@ -42,13 +48,6 @@ function App (){
         <Menu.Item onClick={() => setDashboard("employees")}>
           Employee Management
         </Menu.Item>
-
-        <Dropdown item text="Events">
-          <Dropdown.Menu>
-            <Dropdown.Item>Active Events</Dropdown.Item>
-            <Dropdown.Item>Past Events</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
 
         <Menu.Menu position="right">
           <Menu.Item>Hello, {Auth.user.attributes.name} </Menu.Item>
@@ -63,7 +62,7 @@ function App (){
               <TeamList teamClick={handleTeamClick}></TeamList>
             </Grid.Column>
             <Grid.Column>
-              <EventList></EventList>
+              <EventList eventClick={handleEventClick}></EventList>
             </Grid.Column>
           </Grid>
 
@@ -75,6 +74,9 @@ function App (){
       )}
       {dashboard === "team" && (
         <TeamDashboard team={team}/>
+      )}
+      {dashboard === "event" && (
+        <EventDashboard event={event}/>
       )}
       
     </div>

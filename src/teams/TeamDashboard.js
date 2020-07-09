@@ -73,7 +73,7 @@ function TeamDashboard ({ team }) {
   useEffect(() => {
     teamQuery();
     empQuery();
-  });
+  },[]);
 
   const empOptions = employees.map((item) => ({
     key: item.id,

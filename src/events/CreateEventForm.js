@@ -5,7 +5,7 @@ import { createEvent } from "../graphql/mutations";
 import { teamByManager, messageEvent, membersByTeam } from "../graphql/queries";
 import { Auth } from "aws-amplify";
 import Calendar from "react-calendar";
-import { render } from "@testing-library/react";
+
 
 class CreateEventForm extends Component {
   constructor(props) {

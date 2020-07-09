@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
 
 function validateNumber(event) {
   var destinationNumbers = event.arguments.destinationNumbers;
-  var message = event.message;
+  var message = event.arguments.message;
   for (i = 0; i < destinationNumbers.length; i++) {
     let destinationNumber = destinationNumbers[i];
 
@@ -72,7 +72,7 @@ function sendEvent(destinationNumber, message) {
     },
   };
 
-  pinpoint.sendUserMessages(params, function (err, data) {
+  pinpoint.sendMessages(params, function (err, data) {
     // If something goes wrong, print an error message.
     if (err) {
       console.log(err.message);

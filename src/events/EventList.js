@@ -20,6 +20,7 @@ class EventList extends Component {
 
     this.handleEventFormClick = this.handleEventFormClick.bind(this);
     this.createEventHandler = this.createEventHandler.bind(this);
+    this.handleEventNameClicked = this.handleEventNameClicked.bind(this);
   }
 
   async componentDidMount() {
@@ -55,6 +56,10 @@ class EventList extends Component {
   setPageNum = (event, { activePage }) => {
     this.setState({ page: activePage });
   };
+
+  handleEventNameClicked(id){
+    this.props.eventClick(id);
+  }
 
   render() {
     const itemsPerPage = 5;
@@ -93,7 +98,7 @@ class EventList extends Component {
         <List>
           {event.map((item) => (
             <div key={item.id}>
-              <List.Item onClick={this.handleTeamNameClicked}>
+              <List.Item onClick={() => this.handleEventNameClicked(item.id)}>
                 <Card>
                   <List.Content>
                     <List.Header>{item.eventName}</List.Header>
