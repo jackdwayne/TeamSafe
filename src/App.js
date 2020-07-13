@@ -6,9 +6,9 @@ import {
   AmplifySignIn,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
-import { Menu, Dropdown, Grid, Segment, Divider } from "semantic-ui-react";
+import { Menu, Grid, Segment, Divider } from "semantic-ui-react";
 import TeamList from "./teams/TeamList";
-import EmployeeList from "./employees/EmloyeeList";
+import EmployeeList from "./employees/EmployeeList";
 import EventList from "./events/EventList";
 import { Auth } from "aws-amplify";
 import TeamDashboard from "./teams/TeamDashboard";

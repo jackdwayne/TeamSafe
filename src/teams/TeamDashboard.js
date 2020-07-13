@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   getTeam,
   listEmployees,
@@ -14,10 +14,10 @@ import {
   Divider,
   Dropdown,
   Button,
-  List
+  List,
 } from "semantic-ui-react";
 
-function TeamDashboard ({ team }) {
+function TeamDashboard({ team }) {
   const [thisTeam, setThisTeam] = useState([team]);
   const [employees, setEmployees] = useState([]);
   const [teamMemberDash, setTeamMemberDash] = useState();
@@ -73,11 +73,17 @@ function TeamDashboard ({ team }) {
   useEffect(() => {
     teamQuery();
     empQuery();
-  },[]);
+  }, []);
 
   const empOptions = employees.map((item) => ({
     key: item.id,
-    text: "Name: " + item.firstName + " " + item.lastName + ", Email: " + item.email,
+    text:
+      "Name: " +
+      item.firstName +
+      " " +
+      item.lastName +
+      ", Email: " +
+      item.email,
     value: item.id,
   }));
 
@@ -120,28 +126,40 @@ function TeamDashboard ({ team }) {
               <Segment style={{ overflow: "auto", maxHeight: 200 }}>
                 <List>
                   {teamMembers.map((teamMember) => {
-                    return (
-                      <div key={teamMember.id}>
-                        <List.Item>
-                          <List.Header>{teamMember.employee.firstName + " " +teamMember.employee.lastName}</List.Header>
+                    if (teamMember.employee != null) {
+                      return (
+                        <div key={teamMember.id}>
+                          <List.Item>
+                            <List.Header>
+                              {teamMember.employee.firstName +
+                                " " +
+                                teamMember.employee.lastName}
+                            </List.Header>
 
-                          <p>
-                            {teamMember.id} <br />
-                            {teamMember.employee.phone}
-                            <br />
-                            {teamMember.employee.email}
-                          </p>
-                          <Button
-                            onClick={() =>
-                              handleTeamMemberDelete(teamMember.id)
-                            }
-                          >
-                            Delete Member
-                          </Button>
-                        </List.Item>
-                        <Divider />
-                      </div>
-                    );
+                            <p>
+                              {teamMember.id} <br />
+                              {teamMember.employee.phone}
+                              <br />
+                              {teamMember.employee.email}
+                            </p>
+                            <Button
+                              onClick={() =>
+                                handleTeamMemberDelete(teamMember.id)
+                              }
+                            >
+                              Delete Member
+                            </Button>
+                          </List.Item>
+                          <Divider />
+                        </div>
+                      );
+                    } else {
+                      return(
+                        <div>
+                          <p>teammember error</p>
+                        </div>
+                      )
+                    }
                   })}
                 </List>
               </Segment>
@@ -157,17 +175,16 @@ function TeamDashboard ({ team }) {
               return (
                 <div key={evt.id}>
                   <List.Item>
-                      <List.Content>
-
-                        <List.Header>{evt.eventName}</List.Header>
-                        <b>Team Name</b>
-                        <div>{evt.team.teamName}</div>
-                        <b>Manager</b>
-                        <div>{evt.managerName}</div>
-                        <div>{evt.managerPhone}</div>
-                        <div>{evt.managerEmail}</div>
-                      </List.Content>
-                      <Divider></Divider>
+                    <List.Content>
+                      <List.Header>{evt.eventName}</List.Header>
+                      <b>Team Name</b>
+                      <div>{evt.team.teamName}</div>
+                      <b>Manager</b>
+                      <div>{evt.managerName}</div>
+                      <div>{evt.managerPhone}</div>
+                      <div>{evt.managerEmail}</div>
+                    </List.Content>
+                    <Divider></Divider>
                   </List.Item>
                 </div>
               );
@@ -177,6 +194,6 @@ function TeamDashboard ({ team }) {
       </Segment.Group>
     </div>
   );
-};
+}
 
 export default TeamDashboard;

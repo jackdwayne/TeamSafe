@@ -98,8 +98,8 @@ class EventList extends Component {
         <List>
           {event.map((item) => (
             <div key={item.id}>
-              <List.Item onClick={() => this.handleEventNameClicked(item.id)}>
-                <Card>
+              <List.Item >
+                <Card onClick={() => this.handleEventNameClicked(item.id)}>
                   <List.Content>
                     <List.Header>{item.eventName}</List.Header>
                     <b>Team Name</b>
@@ -109,10 +109,10 @@ class EventList extends Component {
                     <div>{item.managerPhone}</div>
                     <div>{item.managerEmail}</div>
                   </List.Content>
-                  <Button onClick={() => this.handleDelete(item.id)}>
+                </Card>
+                <Button onClick={() => this.handleDelete(item.id)}>
                     Delete Event
                   </Button>
-                </Card>
               </List.Item>
             </div>
           ))}

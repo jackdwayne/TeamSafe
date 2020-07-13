@@ -63,9 +63,10 @@ class CreateEventForm extends Component {
     );
     await this.setState({ teamMembers: tMems.data.membersByTeam.items });
     let i = 0;
-
+    console.log(tMems.data.membersByTeam.items.length);
+    let phoneNumbers = [];
     while (i < tMems.data.membersByTeam.items.length) {
-      let phoneNumbers = [];
+      
       phoneNumbers.push(tMems.data.membersByTeam.items[i].employee.phone);
       this.setState({ destinationNumbers: phoneNumbers });
 

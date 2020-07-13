@@ -4,8 +4,9 @@ import { Pagination } from "semantic-ui-react";
 import CreateEmployeeForm from "./AddEmployeeForm";
 import { listEmployees } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
+import { deleteEmployee } from "../graphql/mutations";
 
-class TeamList extends Component {
+class EmployeeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,13 +35,23 @@ class TeamList extends Component {
   async createEmpHandler() {
     const result = await API.graphql(
       graphqlOperation(listEmployees)
-    );
-    this.setState({ employees: result.data.listEmployees.items });
+    )
+    this.setState({ employees: result.data.listEmployees.items })
+
   }
 
   setPageNum = (event, { activePage }) => {
     this.setState({ page: activePage });
   };
+
+  async deleteClick(id){
+    const input = { id: id };
+    await API.graphql(graphqlOperation(deleteEmployee, {input}));
+    const result = await API.graphql(
+      graphqlOperation(listEmployees)
+    );
+    this.setState({ employees: result.data.listEmployees.items });
+  }
 
   render() {
     const { employees } = this.state;
@@ -79,7 +90,7 @@ class TeamList extends Component {
         <List>
           {employee.map((item) => (
             <div key={item.id}>
-              <List.Item onClick={this.handleEmpNameClicked}>
+              <List.Item>
                 <Card>
                   <List.Content>
                     <List.Header>{item.firstName + item.lastName}</List.Header>
@@ -87,7 +98,9 @@ class TeamList extends Component {
                     <div>{item.email}</div>
                   </List.Content>
                 </Card>
+                <Button onClick={()=>this.deleteClick(item.id)}>Delete Employee</Button>
               </List.Item>
+              <Divider></Divider>
             </div>
           ))}
         </List>
@@ -96,4 +109,4 @@ class TeamList extends Component {
   }
 }
 
-export default TeamList;
+export default EmployeeList;
