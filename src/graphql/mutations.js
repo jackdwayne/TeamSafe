@@ -395,6 +395,7 @@ export const createEvent = /* GraphQL */ `
           id
           message
           eventID
+          employeeID
           responseTime
           responseType
           createdAt
@@ -450,6 +451,7 @@ export const updateEvent = /* GraphQL */ `
           id
           message
           eventID
+          employeeID
           responseTime
           responseType
           createdAt
@@ -505,6 +507,7 @@ export const deleteEvent = /* GraphQL */ `
           id
           message
           eventID
+          employeeID
           responseTime
           responseType
           createdAt
@@ -526,6 +529,39 @@ export const createResponse = /* GraphQL */ `
       id
       message
       eventID
+      event {
+        id
+        managerName
+        managerEmail
+        managerPhone
+        alertManagerSetting
+        eventMessage
+        autoReplyPosMessage
+        autoReplyNegMessage
+        positiveResponse
+        negativeResponse
+        eventStart
+        eventEnd
+        noResponseResendTime
+        eventStatus
+        eventName
+        teamID
+        team {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          teamName
+          createdAt
+          updatedAt
+        }
+        longCode
+        responses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       employee {
         id
         email
@@ -538,6 +574,7 @@ export const createResponse = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      employeeID
       responseTime
       responseType
       createdAt
@@ -554,6 +591,39 @@ export const updateResponse = /* GraphQL */ `
       id
       message
       eventID
+      event {
+        id
+        managerName
+        managerEmail
+        managerPhone
+        alertManagerSetting
+        eventMessage
+        autoReplyPosMessage
+        autoReplyNegMessage
+        positiveResponse
+        negativeResponse
+        eventStart
+        eventEnd
+        noResponseResendTime
+        eventStatus
+        eventName
+        teamID
+        team {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          teamName
+          createdAt
+          updatedAt
+        }
+        longCode
+        responses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       employee {
         id
         email
@@ -566,6 +636,7 @@ export const updateResponse = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      employeeID
       responseTime
       responseType
       createdAt
@@ -582,6 +653,39 @@ export const deleteResponse = /* GraphQL */ `
       id
       message
       eventID
+      event {
+        id
+        managerName
+        managerEmail
+        managerPhone
+        alertManagerSetting
+        eventMessage
+        autoReplyPosMessage
+        autoReplyNegMessage
+        positiveResponse
+        negativeResponse
+        eventStart
+        eventEnd
+        noResponseResendTime
+        eventStatus
+        eventName
+        teamID
+        team {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          teamName
+          createdAt
+          updatedAt
+        }
+        longCode
+        responses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       employee {
         id
         email
@@ -594,6 +698,7 @@ export const deleteResponse = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      employeeID
       responseTime
       responseType
       createdAt

@@ -17,8 +17,16 @@ export const phoneForm = /* GraphQL */ `
   }
 `;
 export const messageEvent = /* GraphQL */ `
-  query MessageEvent($destinationNumbers: [String]!, $message: String!) {
-    messageEvent(destinationNumbers: $destinationNumbers, message: $message)
+  query MessageEvent(
+    $destinationNumbers: [String]!
+    $message: String!
+    $eventID: String!
+  ) {
+    messageEvent(
+      destinationNumbers: $destinationNumbers
+      message: $message
+      eventID: $eventID
+    )
   }
 `;
 export const getEmployee = /* GraphQL */ `
@@ -254,6 +262,7 @@ export const getEvent = /* GraphQL */ `
           id
           message
           eventID
+          employeeID
           responseTime
           responseType
           createdAt
@@ -316,6 +325,39 @@ export const getResponse = /* GraphQL */ `
       id
       message
       eventID
+      event {
+        id
+        managerName
+        managerEmail
+        managerPhone
+        alertManagerSetting
+        eventMessage
+        autoReplyPosMessage
+        autoReplyNegMessage
+        positiveResponse
+        negativeResponse
+        eventStart
+        eventEnd
+        noResponseResendTime
+        eventStatus
+        eventName
+        teamID
+        team {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          teamName
+          createdAt
+          updatedAt
+        }
+        longCode
+        responses {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       employee {
         id
         email
@@ -328,6 +370,7 @@ export const getResponse = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      employeeID
       responseTime
       responseType
       createdAt
@@ -346,6 +389,27 @@ export const listResponses = /* GraphQL */ `
         id
         message
         eventID
+        event {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          alertManagerSetting
+          eventMessage
+          autoReplyPosMessage
+          autoReplyNegMessage
+          positiveResponse
+          negativeResponse
+          eventStart
+          eventEnd
+          noResponseResendTime
+          eventStatus
+          eventName
+          teamID
+          longCode
+          createdAt
+          updatedAt
+        }
         employee {
           id
           email
@@ -355,6 +419,7 @@ export const listResponses = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        employeeID
         responseTime
         responseType
         createdAt
@@ -621,6 +686,27 @@ export const responsesByEvent = /* GraphQL */ `
         id
         message
         eventID
+        event {
+          id
+          managerName
+          managerEmail
+          managerPhone
+          alertManagerSetting
+          eventMessage
+          autoReplyPosMessage
+          autoReplyNegMessage
+          positiveResponse
+          negativeResponse
+          eventStart
+          eventEnd
+          noResponseResendTime
+          eventStatus
+          eventName
+          teamID
+          longCode
+          createdAt
+          updatedAt
+        }
         employee {
           id
           email
@@ -630,6 +716,7 @@ export const responsesByEvent = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        employeeID
         responseTime
         responseType
         createdAt

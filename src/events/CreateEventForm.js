@@ -111,12 +111,15 @@ class CreateEventForm extends Component {
       teamID,
       longCode,
     };
-    await API.graphql(graphqlOperation(createEvent, { input }));
+    const crtEvt = await API.graphql(graphqlOperation(createEvent, { input }));
     this.props.eventHandler();
+    console.log(crtEvt.data.createEvent.id);
     await API.graphql(
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
-        message: eventMessage,
+        message: 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
+          + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you." ,
+        eventID: crtEvt.data.createEvent.id
       })
     );
   };

@@ -92,15 +92,17 @@ type Response
   id: ID!
   message: String
   eventID: ID! 
-  employee: Employee!
-  responseTime: String!
-  responseType: String!
+  event: Event @connection (fields:["eventID"])
+  employee: Employee @connection (fields:["employeeID"])
+  employeeID: ID!
+  responseTime: String
+  responseType: String
 
 }
 
 type Query 
 {
   phoneForm(firstName: String!, lastName: String!, destinationNumber: String!, source: String!): String @function(name: "phoneFormFunction-${env}")
-  messageEvent(destinationNumbers: [String]!, message: String!): String @function(name: "sendSmsEventFunction-${env}")
+  messageEvent(destinationNumbers: [String]!, message: String!, eventID: String!): String @function(name: "sendSmsEventFunction-${env}")
 }
 
