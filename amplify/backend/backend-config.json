@@ -39,12 +39,7 @@
 			}
 		}
 	},
-	"analytics": {
-		"awsteamsafe": {
-			"service": "Pinpoint",
-			"providerPlugin": "awscloudformation"
-		}
-	},
+	"analytics": {},
 	"function": {
 		"phoneFormFunction": {
 			"build": true,
