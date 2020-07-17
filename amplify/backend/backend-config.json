@@ -39,7 +39,12 @@
 			}
 		}
 	},
-	"analytics": {},
+	"analytics": {
+		"awsteamsafe": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation"
+		}
+	},
 	"notifications": {
 		"awsteamsafe": {
 			"service": "Pinpoint",

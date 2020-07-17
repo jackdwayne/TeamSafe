@@ -21,11 +21,13 @@ export const messageEvent = /* GraphQL */ `
     $destinationNumbers: [String]!
     $message: String!
     $eventID: String
+    $alertManagerSetting: String
   ) {
     messageEvent(
       destinationNumbers: $destinationNumbers
       message: $message
       eventID: $eventID
+      alertManagerSetting: $alertManagerSetting
     )
   }
 `;
