@@ -14,13 +14,7 @@
         "categories": {
             "auth": {
                 "awsteamsafefcd90582fcd90582": {}
-            },
-            "notifications": {
-                "Pinpoint": {
-                    "Name": "awsteamsafe-dev",
-                    "Id": "46fe3d7696f4400f8a96a3292dc3bbc3",
-                    "Region": "us-east-1"
-                }
+            }
             }
         }
     }

@@ -45,14 +45,6 @@
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"notifications": {
-		"awsteamsafe": {
-			"service": "Pinpoint",
-			"channels": [
-				"SMS"
-			]
-		}
-	},
 	"function": {
 		"phoneFormFunction": {
 			"build": true,
