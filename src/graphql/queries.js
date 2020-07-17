@@ -20,7 +20,7 @@ export const messageEvent = /* GraphQL */ `
   query MessageEvent(
     $destinationNumbers: [String]!
     $message: String!
-    $eventID: String!
+    $eventID: String
   ) {
     messageEvent(
       destinationNumbers: $destinationNumbers

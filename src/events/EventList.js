@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { List, Button, Card, Header, Divider } from "semantic-ui-react";
+import {
+  List,
+  Button,
+  Card,
+  Header,
+  Divider,
+  Form
+} from "semantic-ui-react";
 import { Pagination } from "semantic-ui-react";
 import CreateEventForm from "./CreateEventForm";
 import { eventByManager } from "../graphql/queries";
@@ -14,6 +21,8 @@ class EventList extends Component {
       page: 1,
       itemsPerPage: 5,
       hideForm: true,
+      hideCheckbox: true,
+      alertManagerSetting: "TRANSACTIONAL",
       user: "",
       events: [],
     };
@@ -32,8 +41,12 @@ class EventList extends Component {
   }
 
   handleEventFormClick(state) {
-    this.setState({ hideForm: !state });
+    this.setState({ hideCheckbox: !state });
   }
+
+  handleChangeAlertManagerSetting = (event, { value }) =>
+  this.setState({ alertManagerSetting: value,
+   });
 
   async handleDelete(id) {
     const user = Auth.user.attributes.email;
@@ -57,7 +70,7 @@ class EventList extends Component {
     this.setState({ page: activePage });
   };
 
-  handleEventNameClicked(id){
+  handleEventNameClicked(id) {
     this.props.eventClick(id);
   }
 
@@ -74,12 +87,32 @@ class EventList extends Component {
       <div>
         <div>
           <Button
-            onClick={() => this.handleEventFormClick(this.state.hideForm)}
+            onClick={() => this.handleEventFormClick(this.state.hideCheckbox)}
           >
             Create Event
           </Button>
-          {this.state.hideForm === false && (
-            <CreateEventForm eventHandler={this.createEventHandler} />
+          {this.state.hideCheckbox === false && (
+            <div>
+              <Form.Group inline>
+                  <Form.Radio
+                    label="Transactional"
+                    name="checkboxRadioGroup"
+                    value="TRANSACTIONAL"
+                    checked={this.state.alertManagerSetting === "TRANSACTIONAL"}
+                    onChange={this.handleChangeAlertManagerSetting}
+                  />
+                  <Form.Radio
+                    label="FYI"
+                    name="checkboxRadioGroup"
+                    value="PROMOTIONAL"
+                    checked={this.state.alertManagerSetting === "PROMOTIONAL"}
+                    onChange={this.handleChangeAlertManagerSetting}
+                  />
+              </Form.Group>
+              <CreateEventForm 
+              eventHandler={this.createEventHandler}
+              alertManagerSetting={this.state.alertManagerSetting} />
+            </div>
           )}
         </div>
         <Divider></Divider>
@@ -98,7 +131,7 @@ class EventList extends Component {
         <List>
           {event.map((item) => (
             <div key={item.id}>
-              <List.Item >
+              <List.Item>
                 <Card onClick={() => this.handleEventNameClicked(item.id)}>
                   <List.Content>
                     <List.Header>{item.eventName}</List.Header>
@@ -111,8 +144,8 @@ class EventList extends Component {
                   </List.Content>
                 </Card>
                 <Button onClick={() => this.handleDelete(item.id)}>
-                    Delete Event
-                  </Button>
+                  Delete Event
+                </Button>
               </List.Item>
             </div>
           ))}

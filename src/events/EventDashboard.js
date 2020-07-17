@@ -48,7 +48,7 @@ function EventDashboard({ event }) {
                 return (
                   <div key={response.id}>
                     <h1>NEEDS ATTENTION</h1>
-                    <li style={{backgroundColor: "red"}}>
+                    <li style={{border: " 2px solid red"}}>
                       <List.Header>
                         <b>Employee Info:</b>
                         <p>
@@ -74,7 +74,7 @@ function EventDashboard({ event }) {
               else if (response.message.includes(thisEvent.positiveResponse)){
                 return (
                   <div key={response.id}>
-                    <li style={{backgroundColor: "green"}}>
+                    <li style={{border: " 2px solid green"}}>
                       <List.Header>
                         <b>Employee Info:</b>
                         <p>
@@ -99,7 +99,7 @@ function EventDashboard({ event }) {
               else{
                 return (
                   <div key={response.id}>
-                    <li style={{backgroundColor: "blue"}}>
+                    <li style={{border: " 2px solid blue"}}>
                       <List.Header>
                         <b>Employee Info:</b>
                         <p>

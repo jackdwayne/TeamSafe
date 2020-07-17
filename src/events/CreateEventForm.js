@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Dropdown, Checkbox } from "semantic-ui-react";
+import { Button, Form, Dropdown } from "semantic-ui-react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createEvent } from "../graphql/mutations";
 import { teamByManager, messageEvent, membersByTeam } from "../graphql/queries";
@@ -31,9 +31,6 @@ class CreateEventForm extends Component {
 
   handleChangeEventName = (event) =>
     this.setState({ eventName: event.target.value });
-
-  handleChangeAlertManagerSetting = (event, { value }) =>
-    this.setState({ alertManagerSetting: value });
 
   handleChangeEventMessage = (event) =>
     this.setState({ eventMessage: event.target.value });
@@ -81,7 +78,6 @@ class CreateEventForm extends Component {
 
   handleAddEvent = async (event) => {
     const {
-      alertManagerSetting,
       eventMessage,
       autoReplyPosMessage,
       autoReplyNegMessage,
@@ -97,7 +93,7 @@ class CreateEventForm extends Component {
       managerName: Auth.user.attributes.name,
       managerEmail: Auth.user.attributes.email,
       managerPhone: Auth.user.attributes.phone_number,
-      alertManagerSetting,
+      alertManagerSetting : this.props.alertManagerSetting,
       eventMessage,
       autoReplyPosMessage,
       autoReplyNegMessage,
@@ -118,8 +114,40 @@ class CreateEventForm extends Component {
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
         message: 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
-          + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you." ,
-        eventID: crtEvt.data.createEvent.id
+          + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "RESPONSE REQUIRED: you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you." ,
+        eventID: crtEvt.data.createEvent.id,
+        alertManagerSetting: this.props.alertManagerSetting
+      })
+    );
+  };
+
+  handleAddPromoEvent = async (event) => {
+    const {
+      eventMessage,
+      eventName,
+      teamID
+    } = this.state;
+    const input = {
+      managerName: Auth.user.attributes.name,
+      managerEmail: Auth.user.attributes.email,
+      managerPhone: Auth.user.attributes.phone_number,
+      alertManagerSetting : this.props.alertManagerSetting,
+      eventMessage,
+      eventStart: new Date(),
+      eventStatus: "Complete",
+      eventName,
+      teamID,
+
+    };
+    const crtEvt = await API.graphql(graphqlOperation(createEvent, { input }));
+    this.props.eventHandler();
+    console.log(crtEvt.data.createEvent.id);
+    await API.graphql(
+      graphqlOperation(messageEvent, {
+        destinationNumbers: this.state.destinationNumbers,
+        message: 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
+          + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "No Response Needed, This message is for your knowledge" ,
+        alertManagerSetting: this.props.alertManagerSetting
       })
     );
   };
@@ -152,109 +180,119 @@ class CreateEventForm extends Component {
         value: "120 Min",
       },
     ];
-
-    return (
-      <Form onSubmit={this.handleAddEvent}>
-        <Form.Field>
-          <label>Event Name</label>
-          <input
-            placeholder="Write the name of the event"
-            onChange={this.handleChangeEventName}
-          />
-        </Form.Field>
-
-        <label>Event End</label>
-        <Calendar
-          onChange={this.handleChangeEventEnd}
-          value={this.state.eventEnd}
-        />
-        <input value={this.state.eventEnd} />
-
-        <Form.Field>
-          <label>Team Name</label>
-          <Dropdown
-            placeholder="Select one of your teams"
-            selection
-            onChange={this.handleChangeTeamID}
-            options={teamOptions}
-            value={teamID}
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Alert Manager?</label>
-        </Form.Field>
-        <Form.Group>
+    if (this.props.alertManagerSetting ===  "TRANSACTIONAL"){
+      return (
+        <Form onSubmit={this.handleAddEvent}>
           <Form.Field>
-            <Checkbox
-              radio
-              label="Yes"
-              name="checkboxRadioGroup"
-              value="Yes"
-              checked={this.state.alertManagerSetting === "Yes"}
-              onChange={this.handleChangeAlertManagerSetting}
+            <label>Event Name</label>
+            <input
+              placeholder="Write the name of the event"
+              onChange={this.handleChangeEventName}
+            />
+          </Form.Field>
+  
+          <label>Event End</label>
+          <Calendar
+            onChange={this.handleChangeEventEnd}
+            value={this.state.eventEnd}
+          />
+          <input value={this.state.eventEnd} />
+  
+          <Form.Field>
+            <label>Team Name</label>
+            <Dropdown
+              placeholder="Select one of your teams"
+              selection
+              onChange={this.handleChangeTeamID}
+              options={teamOptions}
+              value={teamID}
             />
           </Form.Field>
           <Form.Field>
-            <Checkbox
-              radio
-              label="No"
-              name="checkboxRadioGroup"
-              value="No"
-              checked={this.state.alertManagerSetting === "No"}
-              onChange={this.handleChangeAlertManagerSetting}
+          </Form.Field>
+          <Form.Field>
+            <label>Event Message</label>
+            <input
+              onChange={this.handleChangeEventMessage}
+              placeholder="Your message to be sent out"
             />
           </Form.Field>
-        </Form.Group>
-        <Form.Field>
-          <label>Event Message</label>
-          <input
-            onChange={this.handleChangeEventMessage}
-            placeholder="Your message to be sent out"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Message Resend Time</label>
-          <Dropdown
-            placeholder="Select one of your teams"
-            selection
-            onChange={this.handleChangeNoResponseResendTime}
-            options={resendOptions}
-            value={noResponseResendTime}
-          />
-          <input value={noResponseResendTime}></input>
-        </Form.Field>
-        <Form.Field>
-          <label>Positive Auto Reply</label>
-          <input
-            onChange={this.handleChangeAutoReplyPosMessage}
-            placeholder="Auto reply message to positive responses"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Negative Auto Reply</label>
-          <input
-            onChange={this.handleChangeAutoReplyNegMessage}
-            placeholder="Auto reply message to negative responses"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Positive Reply</label>
-          <input
-            onChange={this.handleChangePositiveResponse}
-            placeholder="A positive message your team can select"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>Negative Reply</label>
-          <input
-            onChange={this.handleChangeNegativeResponse}
-            placeholder="A negative message your team can select"
-          />
-        </Form.Field>
-
-        <Button type="submit">Submit</Button>
-      </Form>
-    );
+          <Form.Field>
+            <label>Message Resend Time</label>
+            <Dropdown
+              placeholder="Select one of your teams"
+              selection
+              onChange={this.handleChangeNoResponseResendTime}
+              options={resendOptions}
+              value={noResponseResendTime}
+            />
+            <input value={noResponseResendTime}></input>
+          </Form.Field>
+          <Form.Field>
+            <label>Positive Auto Reply</label>
+            <input
+              onChange={this.handleChangeAutoReplyPosMessage}
+              placeholder="Auto reply message to positive responses"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Negative Auto Reply</label>
+            <input
+              onChange={this.handleChangeAutoReplyNegMessage}
+              placeholder="Auto reply message to negative responses"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Positive Reply</label>
+            <input
+              onChange={this.handleChangePositiveResponse}
+              placeholder="A positive message your team can select"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Negative Reply</label>
+            <input
+              onChange={this.handleChangeNegativeResponse}
+              placeholder="A negative message your team can select"
+            />
+          </Form.Field>
+  
+          <Button type="submit">Submit</Button>
+        </Form>
+      );
+    }
+    else if(this.props.alertManagerSetting === "PROMOTIONAL"){
+      return (
+        <Form onSubmit={this.handleAddPromoEvent}>
+          <Form.Field>
+            <label>Event Name</label>
+            <input
+              placeholder="Write the name of the event"
+              onChange={this.handleChangeEventName}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Team Name</label>
+            <Dropdown
+              placeholder="Select one of your teams"
+              selection
+              onChange={this.handleChangeTeamID}
+              options={teamOptions}
+              value={teamID}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Event Message</label>
+            <input
+              onChange={this.handleChangeEventMessage}
+              placeholder="Your message to be sent out"
+            />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
+      );
+    }
+    
   }
 }
 

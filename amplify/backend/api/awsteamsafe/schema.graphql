@@ -64,14 +64,14 @@ type Event
   managerPhone: String!
   alertManagerSetting: String!
   eventMessage: String!
-  autoReplyPosMessage: String!
-  autoReplyNegMessage: String!
-  positiveResponse: String!
-  negativeResponse: String!
+  autoReplyPosMessage: String
+  autoReplyNegMessage: String
+  positiveResponse: String
+  negativeResponse: String
   eventStart: String!
   eventEnd: String
-  noResponseResendTime: String!
-  eventStatus: String!
+  noResponseResendTime: String
+  eventStatus: String
   eventName: String!
   teamID: ID!
   team: Team @connection(fields: ["teamID"])
@@ -103,6 +103,6 @@ type Response
 type Query 
 {
   phoneForm(firstName: String!, lastName: String!, destinationNumber: String!, source: String!): String @function(name: "phoneFormFunction-${env}")
-  messageEvent(destinationNumbers: [String]!, message: String!, eventID: String!): String @function(name: "sendSmsEventFunction-${env}")
+  messageEvent(destinationNumbers: [String]!, message: String!, eventID: String, alertManagerSetting: String): String @function(name: "sendSmsEventFunction-${env}")
 }
 
