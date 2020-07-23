@@ -1,0 +1,44 @@
+{
+    "permissions": {
+        "auth": {
+            "awsteamsafefcd90582fcd90582": [
+                "create",
+                "read"
+            ]
+        },
+        "api": {
+            "awsteamsafe": [
+                "create",
+                "read"
+            ]
+        },
+        "function": {
+            "sendSmsEventFunction": [
+                "create",
+                "read"
+            ]
+        },
+        "storage": {
+            "Employee:@model(appsync)": [
+                "create",
+                "read"
+            ],
+            "TeamMember:@model(appsync)": [
+                "create",
+                "read"
+            ],
+            "Team:@model(appsync)": [
+                "create",
+                "read"
+            ],
+            "Event:@model(appsync)": [
+                "create",
+                "read"
+            ],
+            "Response:@model(appsync)": [
+                "create",
+                "read"
+            ]
+        }
+    }
+}

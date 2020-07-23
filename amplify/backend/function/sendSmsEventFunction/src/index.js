@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
 function validateNumber(event) {
   var destinationNumbers = event.arguments.destinationNumbers;
   var message = event.arguments.message;
-  var eventID = event.arguments.eventID
+  var eventID = event.arguments.eventID;
   for (i = 0; i < destinationNumbers.length; i++) {
     let destinationNumber = destinationNumbers[i];
 
@@ -43,7 +43,6 @@ function validateNumber(event) {
         //return data;
         if (data["NumberValidateResponse"]["PhoneTypeCode"] == 0) {
           sendEvent(destinationNumber, message);
-          sendEvent(destinationNumber,eventID);
         } else {
           console.log(
             "Received a phone number that isn't capable of receiving " +

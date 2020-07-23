@@ -364,6 +364,7 @@ export const onCreateEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -417,6 +418,7 @@ export const onUpdateEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -470,6 +472,7 @@ export const onDeleteEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -489,6 +492,7 @@ export const onCreateResponse = /* GraphQL */ `
     onCreateResponse {
       id
       message
+      phone
       eventID
       event {
         id
@@ -548,6 +552,7 @@ export const onUpdateResponse = /* GraphQL */ `
     onUpdateResponse {
       id
       message
+      phone
       eventID
       event {
         id
@@ -607,6 +612,7 @@ export const onDeleteResponse = /* GraphQL */ `
     onDeleteResponse {
       id
       message
+      phone
       eventID
       event {
         id

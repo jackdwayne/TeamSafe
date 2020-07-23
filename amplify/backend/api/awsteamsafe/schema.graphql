@@ -91,6 +91,7 @@ type Response
 {
   id: ID!
   message: String
+  phone: String
   eventID: ID! 
   event: Event @connection (fields:["eventID"])
   employee: Employee @connection (fields:["employeeID"])

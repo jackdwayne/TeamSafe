@@ -394,6 +394,7 @@ export const createEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -450,6 +451,7 @@ export const updateEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -506,6 +508,7 @@ export const deleteEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -528,6 +531,7 @@ export const createResponse = /* GraphQL */ `
     createResponse(input: $input, condition: $condition) {
       id
       message
+      phone
       eventID
       event {
         id
@@ -590,6 +594,7 @@ export const updateResponse = /* GraphQL */ `
     updateResponse(input: $input, condition: $condition) {
       id
       message
+      phone
       eventID
       event {
         id
@@ -652,6 +657,7 @@ export const deleteResponse = /* GraphQL */ `
     deleteResponse(input: $input, condition: $condition) {
       id
       message
+      phone
       eventID
       event {
         id

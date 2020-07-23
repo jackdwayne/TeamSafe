@@ -77,7 +77,7 @@ class CreateEventForm extends Component {
     this.setState({ longCode: event.target.value });
 
   handleAddEvent = async (event) => {
-    const {
+    let {
       eventMessage,
       autoReplyPosMessage,
       autoReplyNegMessage,
@@ -89,7 +89,9 @@ class CreateEventForm extends Component {
       teamID,
       longCode
     } = this.state;
-    const input = {
+    positiveResponse = positiveResponse.toLowerCase();
+    negativeResponse = negativeResponse.toLowerCase();
+    let input = {
       managerName: Auth.user.attributes.name,
       managerEmail: Auth.user.attributes.email,
       managerPhone: Auth.user.attributes.phone_number,
@@ -107,18 +109,28 @@ class CreateEventForm extends Component {
       teamID,
       longCode,
     };
+    var evtMessage = 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
+    + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "RESPONSE REQUIRED, reply with ' " + positiveResponse + " ' to acknowledge or ' "
+    + negativeResponse + " ' to alert your manager : you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you.";
     const crtEvt = await API.graphql(graphqlOperation(createEvent, { input }));
     this.props.eventHandler();
     console.log(crtEvt.data.createEvent.id);
     await API.graphql(
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
-        message: 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
-          + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "RESPONSE REQUIRED: you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you." ,
+        message:  evtMessage,
         eventID: crtEvt.data.createEvent.id,
         alertManagerSetting: this.props.alertManagerSetting
       })
     );
+    setTimeout(() => API.graphql(
+      graphqlOperation(messageEvent, {
+        destinationNumbers: this.state.destinationNumbers,
+        message:  crtEvt.data.createEvent.id,
+        eventID: crtEvt.data.createEvent.id,
+        alertManagerSetting: this.props.alertManagerSetting
+      })
+    ), 3000);
   };
 
   handleAddPromoEvent = async (event) => {
@@ -167,17 +179,17 @@ class CreateEventForm extends Component {
       {
         key: "30 Min",
         text: "30 Min",
-        value: "30 Min",
+        value: 30,
       },
       {
         key: "60 Min",
         text: "60 Min",
-        value: "60 Min",
+        value: 60,
       },
       {
         key: "120 Min",
         text: "120 Min",
-        value: "120 Min",
+        value: 120,
       },
     ];
     if (this.props.alertManagerSetting ===  "TRANSACTIONAL"){
@@ -218,9 +230,9 @@ class CreateEventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Message Resend Time</label>
+            <label>Message Resend Time Interval</label>
             <Dropdown
-              placeholder="Select one of your teams"
+              placeholder="Select time interval"
               selection
               onChange={this.handleChangeNoResponseResendTime}
               options={resendOptions}

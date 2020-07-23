@@ -4,7 +4,7 @@ import { Pagination } from "semantic-ui-react";
 import CreateEmployeeForm from "./AddEmployeeForm";
 import { listEmployees } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import { deleteEmployee } from "../graphql/mutations";
+import { deleteEmployee, updateEmployee } from "../graphql/mutations";
 
 class EmployeeList extends Component {
   constructor(props) {
@@ -47,6 +47,15 @@ class EmployeeList extends Component {
   async deleteClick(id){
     const input = { id: id };
     await API.graphql(graphqlOperation(deleteEmployee, {input}));
+    const result = await API.graphql(
+      graphqlOperation(listEmployees)
+    );
+    this.setState({ employees: result.data.listEmployees.items });
+  }
+
+  async updateClick(id){
+    const input = { id: id };
+    await API.graphql(graphqlOperation(updateEmployee, {input}));
     const result = await API.graphql(
       graphqlOperation(listEmployees)
     );
@@ -99,6 +108,7 @@ class EmployeeList extends Component {
                   </List.Content>
                 </Card>
                 <Button onClick={()=>this.deleteClick(item.id)}>Delete Employee</Button>
+                <Button onClick={()=>this.updateClick(item.id)}>Update Employee</Button>
               </List.Item>
               <Divider></Divider>
             </div>

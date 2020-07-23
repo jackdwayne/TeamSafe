@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getEvent, responsesByEvent } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
-import { Segment, Header, Divider, Button, List } from "semantic-ui-react";
+import { Segment, Header, Divider, Button, List, Icon } from "semantic-ui-react";
+import SortResponses from "../responses/SortResponses";
 
 function EventDashboard({ event }) {
   const [thisEvent, setThisEvent] = useState([event]);
   const [responses, setResponses] = useState([]);
+
+  const handleSync = async () => {
+    const resps = await API.graphql(
+      graphqlOperation(responsesByEvent, { eventID: event })
+    );
+    setResponses(resps.data.responsesByEvent.items);
+  }
 
   const eventQuery = async () => {
     const result = await API.graphql(graphqlOperation(getEvent, { id: event }));
@@ -40,90 +48,88 @@ function EventDashboard({ event }) {
           <Divider horizontal></Divider>
         </Segment>
         <Segment>
+          <Button onClick={() => handleSync()}><Icon name = 'sync' size='large'/>Sync Responses</Button>
           <Header>Responses</Header>
           <Divider></Divider>
-          <List>
-            {responses.map((response) => {
-              if (response.message.includes(thisEvent.negativeResponse)){
-                return (
-                  <div key={response.id}>
-                    <h1>NEEDS ATTENTION</h1>
-                    <li style={{border: " 2px solid red"}}>
-                      <List.Header>
-                        <b>Employee Info:</b>
+          <SortResponses by='responseType'>
+            <List>
+              {responses.map((response) => {
+                if (response.message.includes(thisEvent.negativeResponse)) {
+                  return (
+                    <div key={response.id}>
+                      <h1>NEEDS ATTENTION</h1>
+                      <li style={{ border: " 2px solid red" }}>
+                        <List.Header>
+                          <b>Employee Info:</b>
+                          <p>
+                            {response.employee.firstName +
+                              " " +
+                              response.employee.lastName}
+                          </p>
+                        </List.Header>
                         <p>
-                          
-                          {response.employee.firstName +
-                            " " +
-                            response.employee.lastName}
+                          {response.employee.phone}
+                          <br />
+                          {response.employee.email}
                         </p>
-                      </List.Header>
-                      <p>
-                        {response.employee.phone}
-                        <br />
-                        {response.employee.email}
-                      </p>
-                      <b>Response Message:</b>
-                      <p>{response.message}</p>
-                    </li>
-                    <Divider />
-                  </div>
-                );
-
-              }
-              else if (response.message.includes(thisEvent.positiveResponse)){
-                return (
-                  <div key={response.id}>
-                    <li style={{border: " 2px solid green"}}>
-                      <List.Header>
-                        <b>Employee Info:</b>
+                        <b>Response Message:</b>
+                        <p>{response.message}</p>
+                      </li>
+                      <Divider />
+                    </div>
+                  );
+                } else if (
+                  response.message.includes(thisEvent.positiveResponse)
+                ) {
+                  return (
+                    <div key={response.id}>
+                      <li style={{ border: " 2px solid green" }}>
+                        <List.Header>
+                          <b>Employee Info:</b>
+                          <p>
+                            {response.employee.firstName +
+                              " " +
+                              response.employee.lastName}
+                          </p>
+                        </List.Header>
                         <p>
-                          
-                          {response.employee.firstName +
-                            " " +
-                            response.employee.lastName}
+                          {response.employee.phone}
+                          <br />
+                          {response.employee.email}
                         </p>
-                      </List.Header>
-                      <p>
-                        {response.employee.phone}
-                        <br />
-                        {response.employee.email}
-                      </p>
-                      <b>Response Message:</b>
-                      <p>{response.message}</p>
-                    </li>
-                    <Divider />
-                  </div>
-                );
-              }
-              else{
-                return (
-                  <div key={response.id}>
-                    <li style={{border: " 2px solid blue"}}>
-                      <List.Header>
-                        <b>Employee Info:</b>
+                        <b>Response Message:</b>
+                        <p>{response.message}</p>
+                      </li>
+                      <Divider />
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={response.id}>
+                      <li style={{ border: " 2px solid blue" }}>
+                        <List.Header>
+                          <b>Employee Info:</b>
+                          <p>
+                            {response.employee.firstName +
+                              " " +
+                              response.employee.lastName}
+                          </p>
+                        </List.Header>
                         <p>
-                          
-                          {response.employee.firstName +
-                            " " +
-                            response.employee.lastName}
+                          {response.employee.phone}
+                          <br />
+                          {response.employee.email}
                         </p>
-                      </List.Header>
-                      <p>
-                        {response.employee.phone}
-                        <br />
-                        {response.employee.email}
-                      </p>
-                      <b>Response Message:</b>
-                      <p>{response.message}</p>
-                    </li>
-                    <Divider />
-                  </div>
-                );
-              }
-              
-            })}
-          </List>
+                        <b>Response Message:</b>
+                        <p>{response.message}</p>
+                      </li>
+                      <Divider />
+                    </div>
+                  );
+                }
+              })}
+            </List>
+          </SortResponses>
           <Divider />
         </Segment>
       </Segment.Group>

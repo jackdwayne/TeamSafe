@@ -263,6 +263,7 @@ export const getEvent = /* GraphQL */ `
         items {
           id
           message
+          phone
           eventID
           employeeID
           responseTime
@@ -326,6 +327,7 @@ export const getResponse = /* GraphQL */ `
     getResponse(id: $id) {
       id
       message
+      phone
       eventID
       event {
         id
@@ -390,6 +392,7 @@ export const listResponses = /* GraphQL */ `
       items {
         id
         message
+        phone
         eventID
         event {
           id
@@ -687,6 +690,7 @@ export const responsesByEvent = /* GraphQL */ `
       items {
         id
         message
+        phone
         eventID
         event {
           id
