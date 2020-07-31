@@ -70,12 +70,27 @@
 						"GraphQLAPIIdOutput",
 						"GraphQLAPIEndpointOutput"
 					]
+				}
+			]
+		},
+		"iamFilterResponses": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "auth",
+					"resourceName": "awsteamsafefcd90582fcd90582",
+					"attributes": [
+						"UserPoolId"
+					]
 				},
 				{
-					"category": "function",
-					"resourceName": "sendSmsEventFunction",
+					"category": "api",
+					"resourceName": "awsteamsafe",
 					"attributes": [
-						"Name"
+						"GraphQLAPIIdOutput",
+						"GraphQLAPIEndpointOutput"
 					]
 				}
 			]

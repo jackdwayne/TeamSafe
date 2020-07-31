@@ -130,6 +130,7 @@ class EventList extends Component {
         />
         <List>
           {event.map((item) => (
+            
             <div key={item.id}>
               <List.Item>
                 <Card onClick={() => this.handleEventNameClicked(item.id)}>

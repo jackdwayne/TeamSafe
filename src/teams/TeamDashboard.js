@@ -94,7 +94,6 @@ function TeamDashboard({ team }) {
           <Grid columns={2} relaxed="very">
             <Grid.Column>
               <Header>Team Info</Header>
-              <Button>Delete Team</Button>
               <Divider></Divider>
               <div>{thisTeam.teamName}</div>
               <b>Manager</b>
@@ -137,7 +136,6 @@ function TeamDashboard({ team }) {
                             </List.Header>
 
                             <p>
-                              {teamMember.id} <br />
                               {teamMember.employee.phone}
                               <br />
                               {teamMember.employee.email}

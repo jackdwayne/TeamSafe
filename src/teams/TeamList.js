@@ -5,6 +5,7 @@ import CreateTeamForm from "./CreateTeamForm";
 import { teamByManager } from "../graphql/queries";
 import { API, graphqlOperation } from "aws-amplify";
 import { Auth } from "aws-amplify";
+import { deleteTeam } from "../graphql/mutations";
 
 class TeamList extends Component {
   constructor(props) {
@@ -49,6 +50,14 @@ class TeamList extends Component {
   setPageNum = (event, { activePage }) => {
     this.setState({ page: activePage });
   };
+
+  async deleteTeamHandler(teamId) {
+    const result = await API.graphql(
+      graphqlOperation(deleteTeam, { input: {id: teamId}})
+    );
+    this.createTeamHandler();
+
+  }
 
   render() {
     const itemsPerPage = 5;

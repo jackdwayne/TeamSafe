@@ -45,12 +45,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"resendFunction",
+						"iamFilterResponses",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"resendFunction",
+									"iamFilterResponses",
 									"-",
 									{
 										"Ref": "env"
@@ -76,136 +76,6 @@
 						},
 						"API_AWSTEAMSAFE_GRAPHQLAPIENDPOINTOUTPUT": {
 							"Ref": "apiawsteamsafeGraphQLAPIEndpointOutput"
-						},
-						"API_AWSTEAMSAFE_EMPLOYEETABLE_NAME": {
-							"Fn::ImportValue": {
-								"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:EmployeeTable:Name"
-							}
-						},
-						"API_AWSTEAMSAFE_EMPLOYEETABLE_ARN": {
-							"Fn::Join": [
-								"",
-								[
-									"arn:aws:dynamodb:",
-									{
-										"Ref": "AWS::Region"
-									},
-									":",
-									{
-										"Ref": "AWS::AccountId"
-									},
-									":table/",
-									{
-										"Fn::ImportValue": {
-											"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:EmployeeTable:Name"
-										}
-									}
-								]
-							]
-						},
-						"API_AWSTEAMSAFE_TEAMMEMBERTABLE_NAME": {
-							"Fn::ImportValue": {
-								"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:TeamMemberTable:Name"
-							}
-						},
-						"API_AWSTEAMSAFE_TEAMMEMBERTABLE_ARN": {
-							"Fn::Join": [
-								"",
-								[
-									"arn:aws:dynamodb:",
-									{
-										"Ref": "AWS::Region"
-									},
-									":",
-									{
-										"Ref": "AWS::AccountId"
-									},
-									":table/",
-									{
-										"Fn::ImportValue": {
-											"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:TeamMemberTable:Name"
-										}
-									}
-								]
-							]
-						},
-						"API_AWSTEAMSAFE_TEAMTABLE_NAME": {
-							"Fn::ImportValue": {
-								"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:TeamTable:Name"
-							}
-						},
-						"API_AWSTEAMSAFE_TEAMTABLE_ARN": {
-							"Fn::Join": [
-								"",
-								[
-									"arn:aws:dynamodb:",
-									{
-										"Ref": "AWS::Region"
-									},
-									":",
-									{
-										"Ref": "AWS::AccountId"
-									},
-									":table/",
-									{
-										"Fn::ImportValue": {
-											"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:TeamTable:Name"
-										}
-									}
-								]
-							]
-						},
-						"API_AWSTEAMSAFE_EVENTTABLE_NAME": {
-							"Fn::ImportValue": {
-								"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:EventTable:Name"
-							}
-						},
-						"API_AWSTEAMSAFE_EVENTTABLE_ARN": {
-							"Fn::Join": [
-								"",
-								[
-									"arn:aws:dynamodb:",
-									{
-										"Ref": "AWS::Region"
-									},
-									":",
-									{
-										"Ref": "AWS::AccountId"
-									},
-									":table/",
-									{
-										"Fn::ImportValue": {
-											"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:EventTable:Name"
-										}
-									}
-								]
-							]
-						},
-						"API_AWSTEAMSAFE_RESPONSETABLE_NAME": {
-							"Fn::ImportValue": {
-								"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:ResponseTable:Name"
-							}
-						},
-						"API_AWSTEAMSAFE_RESPONSETABLE_ARN": {
-							"Fn::Join": [
-								"",
-								[
-									"arn:aws:dynamodb:",
-									{
-										"Ref": "AWS::Region"
-									},
-									":",
-									{
-										"Ref": "AWS::AccountId"
-									},
-									":table/",
-									{
-										"Fn::ImportValue": {
-											"Fn::Sub": "${apiawsteamsafeGraphQLAPIIdOutput}:GetAtt:ResponseTable:Name"
-										}
-									}
-								]
-							]
 						}
 					}
 				},
@@ -219,7 +89,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-awsteamsafe-dev-95253-deployment",
-					"S3Key": "amplify-builds/resendFunction-74756475486c42446c67-build.zip"
+					"S3Key": "amplify-builds/iamFilterResponses-6636784738656575305a-build.zip"
 				}
 			}
 		},
@@ -229,12 +99,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsteamsafeLambdaRole13ffddd6",
+						"awsteamsafeLambdaRole8a73c7f0",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsteamsafeLambdaRole13ffddd6",
+									"awsteamsafeLambdaRole8a73c7f0",
 									"-",
 									{
 										"Ref": "env"
@@ -393,7 +263,17 @@
 								"cognito-idp:UpdateGroup",
 								"cognito-idp:AdminUpdateAuthEventFeedback",
 								"cognito-idp:UpdateDeviceStatus",
-								"cognito-idp:UpdateUserPool"
+								"cognito-idp:UpdateUserPool",
+								"cognito-idp:DeleteUserPoolDomain",
+								"cognito-idp:DeleteResourceServer",
+								"cognito-idp:DeleteGroup",
+								"cognito-idp:AdminDeleteUserAttributes",
+								"cognito-idp:DeleteUserPoolClient",
+								"cognito-idp:DeleteUserAttributes",
+								"cognito-idp:DeleteUserPool",
+								"cognito-idp:AdminDeleteUser",
+								"cognito-idp:DeleteIdentityProvider",
+								"cognito-idp:DeleteUser"
 							],
 							"Resource": [
 								{
@@ -425,7 +305,8 @@
 								"appsync:GraphQL",
 								"appsync:Get*",
 								"appsync:List*",
-								"appsync:Update*"
+								"appsync:Update*",
+								"appsync:Delete*"
 							],
 							"Resource": [
 								{
@@ -453,45 +334,6 @@
 					]
 				}
 			}
-		},
-		"CloudWatchEvent": {
-			"Type": "AWS::Events::Rule",
-			"Properties": {
-				"Description": "Schedule rule for Lambda",
-				"ScheduleExpression": {
-					"Ref": "CloudWatchRule"
-				},
-				"State": "ENABLED",
-				"Targets": [
-					{
-						"Arn": {
-							"Fn::GetAtt": [
-								"LambdaFunction",
-								"Arn"
-							]
-						},
-						"Id": {
-							"Ref": "LambdaFunction"
-						}
-					}
-				]
-			}
-		},
-		"PermissionForEventsToInvokeLambda": {
-			"Type": "AWS::Lambda::Permission",
-			"Properties": {
-				"FunctionName": {
-					"Ref": "LambdaFunction"
-				},
-				"Action": "lambda:InvokeFunction",
-				"Principal": "events.amazonaws.com",
-				"SourceArn": {
-					"Fn::GetAtt": [
-						"CloudWatchEvent",
-						"Arn"
-					]
-				}
-			}
 		}
 	},
 	"Outputs": {
@@ -516,11 +358,6 @@
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
-			}
-		},
-		"CloudWatchEventRule": {
-			"Value": {
-				"Ref": "CloudWatchEvent"
 			}
 		}
 	}

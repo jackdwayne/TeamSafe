@@ -230,24 +230,6 @@ class CreateEventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Message Resend Time Interval</label>
-            <Dropdown
-              placeholder="Select time interval"
-              selection
-              onChange={this.handleChangeNoResponseResendTime}
-              options={resendOptions}
-              value={noResponseResendTime}
-            />
-            <input value={noResponseResendTime}></input>
-          </Form.Field>
-          <Form.Field>
-            <label>Positive Auto Reply</label>
-            <input
-              onChange={this.handleChangeAutoReplyPosMessage}
-              placeholder="Auto reply message to positive responses"
-            />
-          </Form.Field>
-          <Form.Field>
             <label>Negative Auto Reply</label>
             <input
               onChange={this.handleChangeAutoReplyNegMessage}
