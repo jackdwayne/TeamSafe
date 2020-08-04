@@ -111,7 +111,7 @@ class CreateEventForm extends Component {
     };
     var evtMessage = 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
     + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "RESPONSE REQUIRED, reply with ' " + positiveResponse + " ' to acknowledge or ' "
-    + negativeResponse + " ' to alert your manager : you will recieve an event ID along with this message, please copy and paste and separate it with a space in your response for it to be recorded, thank you.";
+    + negativeResponse + " ' to alert your manager : you will recieve two responses to choose from along with this message, please copy and paste the message and reply for it to be recorded in TeamSafe, thank you.";
     const crtEvt = await API.graphql(graphqlOperation(createEvent, { input }));
     this.props.eventHandler();
     console.log(crtEvt.data.createEvent.id);
@@ -127,7 +127,15 @@ class CreateEventForm extends Component {
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
         message:  crtEvt.data.createEvent.id,
-        eventID: crtEvt.data.createEvent.id,
+        eventID: crtEvt.data.createEvent.positiveResponse + ' '  +  crtEvt.data.createEvent.id,
+        alertManagerSetting: this.props.alertManagerSetting
+      })
+    ), 3000);
+    setTimeout(() => API.graphql(
+      graphqlOperation(messageEvent, {
+        destinationNumbers: this.state.destinationNumbers,
+        message:  crtEvt.data.createEvent.id,
+        eventID: crtEvt.data.createEvent.negativeResponse + ' '  + crtEvt.data.createEvent.id ,
         alertManagerSetting: this.props.alertManagerSetting
       })
     ), 3000);
@@ -214,8 +222,6 @@ class CreateEventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-          </Form.Field>
-          <Form.Field>
             <label>Event Message</label>
             <input
               onChange={this.handleChangeEventMessage}
@@ -223,7 +229,14 @@ class CreateEventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Negative Auto Reply</label>
+            <label>Positive Auto Reply <i>(What the team member will recieve after replying)</i></label>
+            <input
+              onChange={this.handleChangeAutoReplyPosMessage}
+              placeholder="Auto reply message to negative responses"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Negative Auto Reply <i>(What the team member will recieve after replying)</i></label>
             <input
               onChange={this.handleChangeAutoReplyNegMessage}
               placeholder="Auto reply message to negative responses"

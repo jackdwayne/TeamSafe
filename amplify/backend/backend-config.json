@@ -19,7 +19,17 @@
 		"awsteamsafefcd90582fcd90582": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
-			"dependsOn": []
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "awsteamsafefcd90582fcd90582PostConfirmation",
+					"triggerProvider": "Cognito",
+					"attributes": [
+						"Arn",
+						"Name"
+					]
+				}
+			]
 		}
 	},
 	"api": {
@@ -94,6 +104,11 @@
 					]
 				}
 			]
+		},
+		"awsteamsafefcd90582fcd90582PostConfirmation": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda"
 		}
 	}
 }

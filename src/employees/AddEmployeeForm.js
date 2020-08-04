@@ -32,7 +32,7 @@ function AddEmployeeForm ({empHandler}) {
             empHandler();
         }
         else{
-            alert("Phone number is not a possible, retry 10 digit phone number.")
+            alert("Phone number is not possible, retry 10 digit phone number.")
         }
         
   };
