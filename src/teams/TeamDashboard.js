@@ -21,7 +21,7 @@ function TeamDashboard({ team }) {
   const [thisTeam, setThisTeam] = useState([team]);
   const [employees, setEmployees] = useState([]);
   const [teamMemberDash, setTeamMemberDash] = useState();
-  const [empId, setEmpId] = useState();
+    const [empId, setEmpId] = useState();
   const [teamMembers, setTeamMembers] = useState([
     { id: "", employeeID: "", employee: "", teamID: "", team: "" },
   ]);
@@ -118,7 +118,6 @@ function TeamDashboard({ team }) {
                     onChange={handleAddEmployee}
                     noResultsMessage="Employee not in database"
                   />
-                  <input value={empId} />
                 </div>
               )}
               <Divider></Divider>

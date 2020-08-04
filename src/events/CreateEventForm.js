@@ -4,7 +4,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import { createEvent } from "../graphql/mutations";
 import { teamByManager, messageEvent, membersByTeam } from "../graphql/queries";
 import { Auth } from "aws-amplify";
-import Calendar from "react-calendar";
+
 
 
 class CreateEventForm extends Component {
@@ -175,23 +175,23 @@ class CreateEventForm extends Component {
       text: item.teamName,
       value: item.id,
     }));
-    const resendOptions = [
-      {
-        key: "30 Min",
-        text: "30 Min",
-        value: 30,
-      },
-      {
-        key: "60 Min",
-        text: "60 Min",
-        value: 60,
-      },
-      {
-        key: "120 Min",
-        text: "120 Min",
-        value: 120,
-      },
-    ];
+    // const resendOptions = [
+    //   {
+    //     key: "30 Min",
+    //     text: "30 Min",
+    //     value: 30,
+    //   },
+    //   {
+    //     key: "60 Min",
+    //     text: "60 Min",
+    //     value: 60,
+    //   },
+    //   {
+    //     key: "120 Min",
+    //     text: "120 Min",
+    //     value: 120,
+    //   },
+    // ];
     if (this.props.alertManagerSetting ===  "TRANSACTIONAL"){
       return (
         <Form onSubmit={this.handleAddEvent}>
@@ -202,13 +202,6 @@ class CreateEventForm extends Component {
               onChange={this.handleChangeEventName}
             />
           </Form.Field>
-  
-          <label>Event End</label>
-          <Calendar
-            onChange={this.handleChangeEventEnd}
-            value={this.state.eventEnd}
-          />
-          <input value={this.state.eventEnd} />
   
           <Form.Field>
             <label>Team Name</label>

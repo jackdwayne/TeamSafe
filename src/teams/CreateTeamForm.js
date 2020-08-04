@@ -26,9 +26,9 @@ class CreateTeamForm extends Component {
   handleAddTeam = async (event) => {
     const { teamName, managerName, managerPhone } = this.state;
     const input = {
-      managerName,
+      managerName: Auth.user.attributes.name,
       managerEmail: Auth.user.attributes.email,
-      managerPhone,
+      managerPhone: Auth.user.attributes.phone_number,
       teamName,
     };
     await API.graphql(graphqlOperation(createTeam, { input }));
@@ -50,6 +50,7 @@ class CreateTeamForm extends Component {
         <Form.Field>
           <label>Manager Name</label>
           <input
+            value ={user.name}
             onChange={this.handleChangeManagerName}
             placeholder="e.g. Jane Doe"
           />
@@ -61,6 +62,7 @@ class CreateTeamForm extends Component {
         <Form.Field>
           <label>Manager Phone</label>
           <input
+            value={user.phone_number}
             onChange={this.handleChangeManagerPhone}
             placeholder="Phone #"
           />
