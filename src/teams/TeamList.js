@@ -106,6 +106,7 @@ class TeamList extends Component {
                   </List.Content>
                 </Card>
               </List.Item>
+              <Button onClick={()=>this.deleteTeamHandler(item.id)}>Delete Team</Button>
             </div>
           ))}
         </List>

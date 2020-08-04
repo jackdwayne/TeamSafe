@@ -20,6 +20,7 @@ function App (){
   const [dashboard, setDashboard] = React.useState();
   const [team, setTeam] = React.useState();
   const [event, setEvent] = React.useState();
+  const [instructions, setInstructions] = React.useState(false);
 
   React.useEffect(() => {
     return onAuthUIStateChange((nextAuthState, authData) => {
@@ -48,6 +49,9 @@ function App (){
         <Menu.Item onClick={() => setDashboard("employees")}>
           Employee Management
         </Menu.Item>
+        <Menu.Item onClick={() => setInstructions(!instructions)}>
+          Instructions
+        </Menu.Item>
 
         <Menu.Menu position="right">
           <Menu.Item>Hello, {Auth.user.attributes.name} </Menu.Item>
@@ -55,7 +59,14 @@ function App (){
         </Menu.Menu>
       </Menu>
 
+      {instructions === true && (
+         <div><p>1. Create a team <br/> 2. Create Employees in Employee Management<br/>  3. Add employees to the team you created<br/>  4. Create event for the team</p></div>
+       )
+      }
+
       {dashboard === "home" && (
+        <div>
+         
         <Segment>
           <Grid columns={2} relaxed="very">
             <Grid.Column>
@@ -68,6 +79,7 @@ function App (){
 
           <Divider vertical></Divider>
         </Segment>
+        </div>
       )}
       {dashboard=== "employees" && (
         <EmployeeList></EmployeeList>

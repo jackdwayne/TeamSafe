@@ -43,8 +43,18 @@ function EventDashboard({ event }) {
           <h3>Message:</h3>
           <div>{thisEvent.eventMessage}</div>
           <h3>Response types:</h3>
-          <div>{thisEvent.positiveResponse}</div>
-          <div>{thisEvent.negativeResponse}</div>
+          <div>
+          <div style={{ border: " 2px solid green" }}>
+            <h4 >Positive Response: </h4><p>{thisEvent.positiveResponse}</p>
+          </div>
+          <br/>
+          <div style={{ border: " 2px solid red" }}>
+            <h4 >Negative Response: </h4><p>{thisEvent.negativeResponse}</p>
+          </div>
+          
+
+          </div>    
+          
           <Divider horizontal></Divider>
         </Segment>
         <Segment>

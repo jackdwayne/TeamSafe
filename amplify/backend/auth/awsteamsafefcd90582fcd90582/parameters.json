@@ -43,7 +43,7 @@
     "usernameAttributes": [
         "email"
     ],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
     "hostedUI": false,

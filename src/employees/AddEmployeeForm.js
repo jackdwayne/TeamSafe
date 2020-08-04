@@ -66,6 +66,7 @@ function AddEmployeeForm ({empHandler}) {
         <Form.Field>
           <label>Employee Phone</label>
           <PhoneInput
+            defaultCountry='US'
             placeholder="Enter phone number"
             value={employeePhone}
             onChange={setEmployeePhone}

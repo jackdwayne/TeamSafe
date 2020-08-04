@@ -7,10 +7,11 @@
     "functionName": "awsteamsafefcd90582fcd90582PostConfirmation",
     "resourceName": "awsteamsafefcd90582fcd90582PostConfirmation",
     "parentStack": "auth",
-    "triggerEnvs": [],
+    "triggerEnvs": "[]",
     "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PostConfirmation",
     "triggerTemplate": "PostConfirmation.json.ejs",
     "roleName": "awsteamsafefcd90582fcd90582PostConfirmation",
     "skipEdit": true,
-    "GROUP": "managers"
+    "GROUP": "managers",
+    "triggerEventPath": "PostConfirmation.event.json"
 }

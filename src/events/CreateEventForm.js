@@ -111,7 +111,7 @@ class CreateEventForm extends Component {
     };
     var evtMessage = 'AWS Team Safe message sent by '+ Auth.user.attributes.name 
     + ': ' + '\' ' + eventMessage + ' \'' + " ------" + "RESPONSE REQUIRED, reply with ' " + positiveResponse + " ' to acknowledge or ' "
-    + negativeResponse + " ' to alert your manager : you will recieve two responses to choose from along with this message, please copy and paste the message and reply for it to be recorded in TeamSafe, thank you.";
+    + negativeResponse + " ' to alert your manager : you will recieve two responses to choose from along with this message, please copy and paste one of the responses and reply for it to be recorded in TeamSafe, thank you.";
     const crtEvt = await API.graphql(graphqlOperation(createEvent, { input }));
     this.props.eventHandler();
     console.log(crtEvt.data.createEvent.id);
@@ -126,16 +126,16 @@ class CreateEventForm extends Component {
     setTimeout(() => API.graphql(
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
-        message:  crtEvt.data.createEvent.id,
-        eventID: crtEvt.data.createEvent.positiveResponse + ' '  +  crtEvt.data.createEvent.id,
+        message:  positiveResponse + ' '  +  crtEvt.data.createEvent.id,
+        eventID: crtEvt.data.createEvent.id,
         alertManagerSetting: this.props.alertManagerSetting
       })
     ), 3000);
     setTimeout(() => API.graphql(
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
-        message:  crtEvt.data.createEvent.id,
-        eventID: crtEvt.data.createEvent.negativeResponse + ' '  + crtEvt.data.createEvent.id ,
+        message:  negativeResponse + ' '  + crtEvt.data.createEvent.id ,
+        eventID: crtEvt.data.createEvent.id ,
         alertManagerSetting: this.props.alertManagerSetting
       })
     ), 3000);
@@ -229,33 +229,34 @@ class CreateEventForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Positive Auto Reply <i>(What the team member will recieve after replying)</i></label>
-            <input
-              onChange={this.handleChangeAutoReplyPosMessage}
-              placeholder="Auto reply message to negative responses"
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Negative Auto Reply <i>(What the team member will recieve after replying)</i></label>
-            <input
-              onChange={this.handleChangeAutoReplyNegMessage}
-              placeholder="Auto reply message to negative responses"
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Positive Reply</label>
+            <label>Positive Reply <i>(The positive option for the team member to reply to the event message)</i></label>
             <input
               onChange={this.handleChangePositiveResponse}
               placeholder="A positive message your team can select"
             />
           </Form.Field>
           <Form.Field>
-            <label>Negative Reply</label>
+            <label>Negative Reply <i>(The positive option for the team member to reply to the event message)</i></label>
             <input
               onChange={this.handleChangeNegativeResponse}
               placeholder="A negative message your team can select"
             />
           </Form.Field>
+          <Form.Field>
+            <label>Positive Auto Reply <i>(What the team member will recieve after replying with the positive reply)</i></label>
+            <input
+              onChange={this.handleChangeAutoReplyPosMessage}
+              placeholder="Auto reply message to negative responses"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Negative Auto Reply <i>(What the team member will recieve after replying with the negative reply)</i></label>
+            <input
+              onChange={this.handleChangeAutoReplyNegMessage}
+              placeholder="Auto reply message to negative responses"
+            />
+          </Form.Field>
+          
   
           <Button type="submit">Submit</Button>
         </Form>
