@@ -1,0 +1,16 @@
+{
+    "trigger": true,
+    "modules": [
+        "email-filter-whitelist"
+    ],
+    "parentResource": "awsteamsafefcd90582fcd90582",
+    "functionName": "awsteamsafefcd90582fcd90582PreSignup",
+    "resourceName": "awsteamsafefcd90582fcd90582PreSignup",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PreSignup",
+    "triggerTemplate": "PreSignup.json.ejs",
+    "roleName": "awsteamsafefcd90582fcd90582PreSignup",
+    "skipEdit": true,
+    "DOMAINWHITELIST": ""
+}

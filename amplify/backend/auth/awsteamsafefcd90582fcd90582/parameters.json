@@ -44,7 +44,7 @@
     ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
     "hostedUI": false,
     "userPoolGroupList": [
         "managers"
@@ -71,6 +71,15 @@
         {
             "category": "function",
             "resourceName": "awsteamsafefcd90582fcd90582PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        },
+        {
+            "category": "function",
+            "resourceName": "awsteamsafefcd90582fcd90582PreSignup",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",

@@ -21,6 +21,16 @@ Parameters:
   
   
   
+  functionawsteamsafefcd90582fcd90582PreSignupArn: 
+    Type: String
+    Default: functionawsteamsafefcd90582fcd90582PreSignupArn
+  
+  functionawsteamsafefcd90582fcd90582PreSignupName: 
+    Type: String
+    Default: functionawsteamsafefcd90582fcd90582PreSignupName
+  
+  
+  
 
     
   identityPoolName:
@@ -198,6 +208,8 @@ Resources:
         
         
         
+          PreSignUp: !Ref functionawsteamsafefcd90582fcd90582PreSignupArn
+        
         
         
       
@@ -240,6 +252,15 @@ Resources:
       SourceArn: !GetAtt UserPool.Arn
     
   
+  
+  UserPoolPreSignupLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionawsteamsafefcd90582fcd90582PreSignupName
+      SourceArn: !GetAtt UserPool.Arn
   
    
     

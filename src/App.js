@@ -4,7 +4,6 @@ import {
   AmplifySignUp,
   AmplifySignOut,
   AmplifySignIn,
-  AmplifyConfirmSignUp,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Menu, Grid, Segment, Divider } from "semantic-ui-react";
@@ -15,6 +14,8 @@ import { Auth } from "aws-amplify";
 import TeamDashboard from "./teams/TeamDashboard";
 import EventDashboard from "./events/EventDashboard";
 
+
+
 function App (){
   const [authState, setAuthState] = React.useState();
   const [user, setUser] = React.useState();
@@ -24,8 +25,12 @@ function App (){
   const [instructions, setInstructions] = React.useState(false);
 
   React.useEffect(() => {
-    setDashboard('home');
-  });
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+      setDashboard('home');
+    });
+  }, []);
 
   const handleTeamClick = event => {
     setTeam(event);
@@ -39,40 +44,8 @@ function App (){
 
 
 
-  return (
+  return authState === AuthState.SignedIn && user ? (
     <div className="App">
-      <AmplifyAuthenticator>
-      <AmplifySignUp
-        slot="sign-up"
-        usernameAlias="email"
-        formFields={[
-          {
-            type: "email",
-            label: "Email Address *",
-            placeholder: "Enter your email address",
-            required: true,
-          },
-          {
-            type: "password",
-            label: "Password *",
-            placeholder: "Enter your password",
-            required: true,
-          },
-          {
-            type: "name",
-            label: "Full Name *",
-            placeholder: "Enter your first and last name",
-            required: true,
-          },
-          {
-            type: "phone_number",
-            label: "Phone Number *",
-            placeholder: "Enter your phone number",
-            required: true,
-          },
-        ]}
-      />
-      <AmplifySignIn slot="sign-in" usernameAlias="email" />
       <Menu>
         <Menu.Item onClick={() => setDashboard("home")}>Home</Menu.Item>
         <Menu.Item onClick={() => setDashboard("employees")}>
@@ -83,6 +56,7 @@ function App (){
         </Menu.Item>
 
         <Menu.Menu position="right">
+          <Menu.Item>Hello, {Auth.user.attributes.name} </Menu.Item>
           <AmplifySignOut />
         </Menu.Menu>
       </Menu>
@@ -118,11 +92,43 @@ function App (){
       {dashboard === "event" && (
         <EventDashboard event={event}/>
       )}
-    </AmplifyAuthenticator>
+      
     </div>
-    )
-    
-
+    ) : (
+    <AmplifyAuthenticator>
+      <AmplifySignUp
+        slot="sign-up"
+        usernameAlias="email"
+        formFields={[
+          {
+            type: "email",
+            label: "Email Address *",
+            placeholder: "Enter your email address",
+            required: true,
+          },
+          {
+            type: "password",
+            label: "Password *",
+            placeholder: "Enter your password",
+            required: true,
+          },
+          {
+            type: "name",
+            label: "Full Name *",
+            placeholder: "Enter your first and last name",
+            required: true,
+          },
+          {
+            type: "phone_number",
+            label: "Phone Number *",
+            placeholder: "Enter your phone number",
+            required: true,
+          },
+        ]}
+      />
+      <AmplifySignIn slot="sign-in" usernameAlias="email" />
+    </AmplifyAuthenticator>
+  );
 };
 
 export default App;

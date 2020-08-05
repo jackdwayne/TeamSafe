@@ -28,6 +28,15 @@
                         "Arn",
                         "Name"
                     ]
+                },
+                {
+                    "category": "function",
+                    "resourceName": "awsteamsafefcd90582fcd90582PreSignup",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
                 }
             ]
         }
@@ -106,6 +115,11 @@
             ]
         },
         "awsteamsafefcd90582fcd90582PostConfirmation": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
+        },
+        "awsteamsafefcd90582fcd90582PreSignup": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda"
