@@ -21,6 +21,16 @@ Parameters:
   
   
   
+  functionawsteamsafefcd90582fcd90582DefineAuthChallengeArn: 
+    Type: String
+    Default: functionawsteamsafefcd90582fcd90582DefineAuthChallengeArn
+  
+  functionawsteamsafefcd90582fcd90582DefineAuthChallengeName: 
+    Type: String
+    Default: functionawsteamsafefcd90582fcd90582DefineAuthChallengeName
+  
+  
+  
 
     
   identityPoolName:
@@ -192,6 +202,8 @@ Resources:
         
         
         
+          DefineAuthChallenge: !Ref functionawsteamsafefcd90582fcd90582DefineAuthChallengeArn
+        
         
         
           PostConfirmation: !Ref functionawsteamsafefcd90582fcd90582PostConfirmationArn
@@ -227,6 +239,15 @@ Resources:
   
     
     
+  
+  UserPoolDefineAuthChallengeLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionawsteamsafefcd90582fcd90582DefineAuthChallengeName
+      SourceArn: !GetAtt UserPool.Arn
   
     
   

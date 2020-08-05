@@ -18,7 +18,8 @@
             "function": {
                 "awsteamsafefcd90582fcd90582PostConfirmation": {
                     "GROUP": "managers"
-                }
+                },
+                "awsteamsafefcd90582fcd90582DefineAuthChallenge": {}
             }
         }
     }

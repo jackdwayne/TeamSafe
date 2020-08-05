@@ -1,0 +1,15 @@
+{
+    "trigger": true,
+    "modules": [
+        "captcha-define-challenge"
+    ],
+    "parentResource": "awsteamsafefcd90582fcd90582",
+    "functionName": "awsteamsafefcd90582fcd90582DefineAuthChallenge",
+    "resourceName": "awsteamsafefcd90582fcd90582DefineAuthChallenge",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/DefineAuthChallenge",
+    "triggerTemplate": "DefineAuthChallenge.json.ejs",
+    "roleName": "awsteamsafefcd90582fcd90582DefineAuthChallenge",
+    "skipEdit": true
+}
