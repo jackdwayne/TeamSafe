@@ -39,13 +39,12 @@
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "awsteamsafefcd90582fcd90582",
-    "thirdPartyAuth": false,
     "usernameAttributes": [
         "email"
     ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{}",
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
     "hostedUI": false,
     "userPoolGroupList": [
         "managers"
@@ -65,6 +64,19 @@
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": [],
-    "dependsOn": []
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
+    ],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "awsteamsafefcd90582fcd90582PostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "thirdPartyAuth": false
 }

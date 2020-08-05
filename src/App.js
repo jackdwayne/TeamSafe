@@ -61,7 +61,7 @@ function App (){
       </Menu>
 
       {instructions === true && (
-         <div><p>1. Create a team <br/> 2. Create Employees in Employee Management<br/>  3. Add employees to the team you created<br/>  4. Create event for the team</p></div>
+         <div><p>1. Create a team <br/>2. Create Employees in Employee Management<br/> 3. Add employees to the team you created<br/> 4. Create event for the team</p></div>
        )
       }
 
@@ -125,8 +125,8 @@ function App (){
           },
         ]}
       />
-      <AmplifySignIn slot="sign-in" usernameAlias="email" onS />
-      <AmplifyConfirmSignUp/>
+      <AmplifySignIn slot="sign-in" usernameAlias="email" />
+      <AmplifyConfirmSignUp />
     </AmplifyAuthenticator>
   );
 };
