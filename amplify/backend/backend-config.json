@@ -19,26 +19,7 @@
         "awsteamsafefcd90582fcd90582": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "awsteamsafefcd90582fcd90582PostConfirmation",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                },
-                {
-                    "category": "function",
-                    "resourceName": "awsteamsafefcd90582fcd90582DefineAuthChallenge",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                }
-            ]
+            "dependsOn": []
         }
     },
     "api": {
@@ -113,16 +94,6 @@
                     ]
                 }
             ]
-        },
-        "awsteamsafefcd90582fcd90582PostConfirmation": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "awsteamsafefcd90582fcd90582DefineAuthChallenge": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
         }
     }
 }
