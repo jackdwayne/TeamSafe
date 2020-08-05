@@ -4,6 +4,7 @@ import {
   AmplifySignUp,
   AmplifySignOut,
   AmplifySignIn,
+  AmplifyConfirmSignUp,
 } from "@aws-amplify/ui-react";
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Menu, Grid, Segment, Divider } from "semantic-ui-react";
@@ -125,6 +126,7 @@ function App (){
         ]}
       />
       <AmplifySignIn slot="sign-in" usernameAlias="email" onS />
+      <AmplifyConfirmSignUp/>
     </AmplifyAuthenticator>
   );
 };
