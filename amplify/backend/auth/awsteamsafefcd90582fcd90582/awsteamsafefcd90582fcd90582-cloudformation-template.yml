@@ -21,13 +21,13 @@ Parameters:
   
   
   
-  functionawsteamsafefcd90582fcd90582PreSignupArn: 
+  functionawsteamsafefcd90582fcd90582CustomMessageArn: 
     Type: String
-    Default: functionawsteamsafefcd90582fcd90582PreSignupArn
+    Default: functionawsteamsafefcd90582fcd90582CustomMessageArn
   
-  functionawsteamsafefcd90582fcd90582PreSignupName: 
+  functionawsteamsafefcd90582fcd90582CustomMessageName: 
     Type: String
-    Default: functionawsteamsafefcd90582fcd90582PreSignupName
+    Default: functionawsteamsafefcd90582fcd90582CustomMessageName
   
   
   
@@ -134,11 +134,35 @@ Parameters:
         
   thirdPartyAuth:
     Type: String
-                      
+                        
+  verificationBucketName:
+    Type: String
+            
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
 Resources:
+  
+  CustomMessageConfirmationBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: "Retain"
+    Properties:
+      BucketName:  !If [ShouldNotCreateEnvResources, !Ref verificationBucketName, !Join ['',[!Ref verificationBucketName, '-', !Ref env]]]
+      AccessControl: "Private"
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
+        ErrorDocument: "index.html"
+      CorsConfiguration:
+        CorsRules:
+          - 
+            AllowedHeaders:
+              - "Authorization" 
+              - "Content-Length"
+            AllowedMethods:
+              - "GET"
+            AllowedOrigins:
+              - "*"
+            MaxAge: 3000
   
   
   # BEGIN SNS ROLE RESOURCE
@@ -201,14 +225,14 @@ Resources:
       LambdaConfig:
         
         
+          CustomMessage: !Ref functionawsteamsafefcd90582fcd90582CustomMessageArn
+        
         
         
         
           PostConfirmation: !Ref functionawsteamsafefcd90582fcd90582PostConfirmationArn
         
         
-        
-          PreSignUp: !Ref functionawsteamsafefcd90582fcd90582PreSignupArn
         
         
         
@@ -238,6 +262,15 @@ Resources:
     
   
     
+  
+  UserPoolCustomMessageLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionawsteamsafefcd90582fcd90582CustomMessageName
+      SourceArn: !GetAtt UserPool.Arn
     
   
     
@@ -252,15 +285,6 @@ Resources:
       SourceArn: !GetAtt UserPool.Arn
     
   
-  
-  UserPoolPreSignupLambdaInvokePermission: 
-    Type: "AWS::Lambda::Permission"
-    DependsOn: UserPool
-    Properties: 
-      Action: "lambda:invokeFunction"
-      Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionawsteamsafefcd90582fcd90582PreSignupName
-      SourceArn: !GetAtt UserPool.Arn
   
    
     

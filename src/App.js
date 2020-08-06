@@ -4,7 +4,10 @@ import {
   AmplifySignUp,
   AmplifySignOut,
   AmplifySignIn,
+  AmplifyConfirmSignUp,
+  AmplifyConfirmSignIn
 } from "@aws-amplify/ui-react";
+
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
 import { Menu, Grid, Segment, Divider } from "semantic-ui-react";
 import TeamList from "./teams/TeamList";
@@ -40,6 +43,10 @@ function App (){
   const handleEventClick = event => {
     setEvent(event);
     setDashboard('event');
+  }
+
+  const handleConfirmSubmit = event => {
+    window.location.reload(false);
   }
 
 
@@ -95,7 +102,7 @@ function App (){
       
     </div>
     ) : (
-    <AmplifyAuthenticator>
+    <AmplifyAuthenticator >
       <AmplifySignUp
         slot="sign-up"
         usernameAlias="email"
@@ -126,6 +133,19 @@ function App (){
           },
         ]}
       />
+      <AmplifyConfirmSignUp slot="confirm-sign-up"
+      submitButtonText = "Go to sign in"
+      handleSubmit={handleConfirmSubmit}
+      formFields={[
+        {
+          type: "username",
+          label: "Email Confirmation",
+          value: "Please check email for verfication link",
+          placeholder: "custom email placeholder",
+          required: true,
+        },
+      ]}
+      ></AmplifyConfirmSignUp>
       <AmplifySignIn slot="sign-in" usernameAlias="email" />
     </AmplifyAuthenticator>
   );

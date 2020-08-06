@@ -31,7 +31,7 @@
                 },
                 {
                     "category": "function",
-                    "resourceName": "awsteamsafefcd90582fcd90582PreSignup",
+                    "resourceName": "awsteamsafefcd90582fcd90582CustomMessage",
                     "triggerProvider": "Cognito",
                     "attributes": [
                         "Arn",
@@ -119,7 +119,7 @@
             "providerPlugin": "awscloudformation",
             "service": "Lambda"
         },
-        "awsteamsafefcd90582fcd90582PreSignup": {
+        "awsteamsafefcd90582fcd90582CustomMessage": {
             "build": true,
             "providerPlugin": "awscloudformation",
             "service": "Lambda"

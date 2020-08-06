@@ -1,6 +1,6 @@
 {
     "identityPoolName": "awsteamsafefcd90582_identitypool_fcd90582",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "awsteafcd90582",
     "userPoolName": "awsteamsafefcd90582_userpool_fcd90582",
     "autoVerifiedAttributes": [
@@ -44,7 +44,7 @@
     ],
     "userPoolGroups": false,
     "adminQueries": false,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"],\"PreSignup\":[\"email-filter-whitelist\"]}",
+    "triggers": "{\"CustomMessage\":[\"verification-link\"],\"PostConfirmation\":[\"add-to-group\"]}",
     "hostedUI": false,
     "userPoolGroupList": [
         "managers"
@@ -79,7 +79,7 @@
         },
         {
             "category": "function",
-            "resourceName": "awsteamsafefcd90582fcd90582PreSignup",
+            "resourceName": "awsteamsafefcd90582fcd90582CustomMessage",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -87,5 +87,6 @@
             ]
         }
     ],
-    "thirdPartyAuth": false
+    "thirdPartyAuth": false,
+    "verificationBucketName": "awsteamsafefcd90582fcd90582verificationbucket"
 }

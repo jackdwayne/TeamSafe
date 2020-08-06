@@ -19,8 +19,10 @@
                 "awsteamsafefcd90582fcd90582PostConfirmation": {
                     "GROUP": "managers"
                 },
-                "awsteamsafefcd90582fcd90582PreSignup": {
-                    "DOMAINWHITELIST": ""
+                "awsteamsafefcd90582fcd90582CustomMessage": {
+                    "REDIRECTURL": "https://master.d2zhh8ijz4vzo6.amplifyapp.com/",
+                    "EMAILSUBJECT": "Confirmation Email for Team Safe Application",
+                    "EMAILMESSAGE": "Please click this link to verify your account:"
                 }
             }
         }

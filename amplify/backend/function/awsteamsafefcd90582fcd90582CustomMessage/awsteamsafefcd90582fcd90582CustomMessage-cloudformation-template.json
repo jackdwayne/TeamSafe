@@ -2,11 +2,15 @@
 	"AWSTemplateFormatVersion": "2010-09-09",
 	"Description": "Lambda resource stack creation using Amplify CLI",
 	"Parameters": {
-		"DOMAINBLACKLIST": {
+		"REDIRECTURL": {
 			"Type": "String",
 			"Default": ""
 		},
-		"DOMAINWHITELIST": {
+		"EMAILMESSAGE": {
+			"Type": "String",
+			"Default": ""
+		},
+		"EMAILSUBJECT": {
 			"Type": "String",
 			"Default": ""
 		},
@@ -65,12 +69,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsteamsafefcd90582fcd90582PreSignup",
+						"awsteamsafefcd90582fcd90582CustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsteamsafefcd90582fcd90582PreSignup",
+									"awsteamsafefcd90582fcd90582CustomMessage",
 									"-",
 									{
 										"Ref": "env"
@@ -91,11 +95,17 @@
 						"REGION": {
 							"Ref": "AWS::Region"
 						},
-						"DOMAINWHITELIST": {
-							"Ref": "DOMAINWHITELIST"
+						"REDIRECTURL": {
+							"Ref": "REDIRECTURL"
 						},
-						"DOMAINBLACKLIST": {
-							"Ref": "DOMAINBLACKLIST"
+						"EMAILSUBJECT": {
+							"Ref": "EMAILSUBJECT"
+						},
+						"EMAILMESSAGE": {
+							"Ref": "EMAILMESSAGE"
+						},
+						"RESOURCENAME": {
+							"Ref": "resourceName"
 						}
 					}
 				},
@@ -109,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-awsteamsafe-dev-95253-deployment",
-					"S3Key": "amplify-builds/awsteamsafefcd90582fcd90582PreSignup-56454f3276466246716a-build.zip"
+					"S3Key": "amplify-builds/awsteamsafefcd90582fcd90582CustomMessage-35714d364a616c585961-build.zip"
 				}
 			}
 		},
@@ -119,12 +129,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"awsteamsafefcd90582fcd90582PreSignup",
+						"awsteamsafefcd90582fcd90582CustomMessage",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"awsteamsafefcd90582fcd90582PreSignup",
+									"awsteamsafefcd90582fcd90582CustomMessage",
 									"-",
 									{
 										"Ref": "env"

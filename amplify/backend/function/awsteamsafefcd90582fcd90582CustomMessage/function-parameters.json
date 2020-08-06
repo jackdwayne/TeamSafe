@@ -1,0 +1,24 @@
+{
+    "trigger": true,
+    "modules": [
+        "verification-link"
+    ],
+    "parentResource": "awsteamsafefcd90582fcd90582",
+    "functionName": "awsteamsafefcd90582fcd90582CustomMessage",
+    "resourceName": "awsteamsafefcd90582fcd90582CustomMessage",
+    "parentStack": "auth",
+    "triggerEnvs": [
+        {
+            "key": "RESOURCENAME",
+            "value": "resourceName"
+        }
+    ],
+    "triggerDir": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/CustomMessage",
+    "triggerTemplate": "CustomMessage.json.ejs",
+    "roleName": "awsteamsafefcd90582fcd90582CustomMessage",
+    "skipEdit": true,
+    "REDIRECTURL": "https://master.d2zhh8ijz4vzo6.amplifyapp.com/",
+    "EMAILSUBJECT": "Confirmation Email for Team Safe Application",
+    "EMAILMESSAGE": "Please click this link to verify your account:",
+    "RESOURCENAME": "resourceName"
+}
