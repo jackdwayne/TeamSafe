@@ -33,7 +33,6 @@ function EventDashboard({ event }) {
       <Segment.Group>
         <Segment>
           <Header>Event Info</Header>
-          <Button>Delete Event</Button>
           <Divider></Divider>
           <div>{thisEvent.eventName}</div>
           <b>Manager</b>
