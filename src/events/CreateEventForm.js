@@ -138,7 +138,7 @@ class CreateEventForm extends Component {
         eventID: crtEvt.data.createEvent.id ,
         alertManagerSetting: this.props.alertManagerSetting
       })
-    ), 3000);
+    ), 4050);
   };
 
   handleAddPromoEvent = async (event) => {
