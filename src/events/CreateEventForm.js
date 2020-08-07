@@ -130,7 +130,7 @@ class CreateEventForm extends Component {
         eventID: crtEvt.data.createEvent.id,
         alertManagerSetting: this.props.alertManagerSetting
       })
-    ), 3000);
+    ), 1100);
     setTimeout(() => API.graphql(
       graphqlOperation(messageEvent, {
         destinationNumbers: this.state.destinationNumbers,
@@ -138,7 +138,7 @@ class CreateEventForm extends Component {
         eventID: crtEvt.data.createEvent.id ,
         alertManagerSetting: this.props.alertManagerSetting
       })
-    ), 4050);
+    ), 2100);
   };
 
   handleAddPromoEvent = async (event) => {
